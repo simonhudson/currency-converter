@@ -48,3 +48,19 @@ input[type=number] {
   -moz-appearance: textfield;
   appearance: textfield;
 }
+
+input {
+  border: none;
+	border-bottom: 3px solid #5d5d5d;
+	color: #0072d0;
+	font-size: 24px;
+	font-weight: bold;
+	padding: 20px 10px;
+	width: 100%;
+
+	&:focus {
+		border-bottom: 3px solid #0072d0;
+		outline: none;
+	}
+  
+}

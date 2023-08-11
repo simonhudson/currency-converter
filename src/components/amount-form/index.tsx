@@ -13,8 +13,8 @@ type Props = {
 const AmountForm = ({ countries }: Props) => {
 	const [inputValue, setInputValue] = useState<string>('');
 	const [inputErrorMessage, setInputErrorMessage] = useState<string | undefined>();
-	const [showCurrencyPicker, setShowCurrencyPicker] = useState<boolean>(false);
 	const [currencyDataSource, setCurrencyDataSource] = useState<string[]>([]);
+	const [currencyPickerIsDisabled, setCurrencyPickerIsDisabled] = useState<boolean>(true);
 
 	useEffect(() => {
 		let currencies = [];
@@ -27,9 +27,9 @@ const AmountForm = ({ countries }: Props) => {
 		const isDecimalValue: boolean = value.includes('.');
 		if (value.length && !isDecimalValue) {
 			setInputErrorMessage(undefined);
-			setShowCurrencyPicker(true);
+			setCurrencyPickerIsDisabled(false);
 		} else {
-			setShowCurrencyPicker(false);
+			setCurrencyPickerIsDisabled(true);
 			if (!value.length) setInputErrorMessage('Please enter a value in the "Amount" field');
 			if (isDecimalValue) setInputErrorMessage(`${value} is not a valid number`);
 		}
@@ -51,7 +51,7 @@ const AmountForm = ({ countries }: Props) => {
 						{inputErrorMessage}
 					</ErrorMessage>
 				)}
-				{showCurrencyPicker && <CurrencyPicker dataSource={currencyDataSource} inputId="currency-picker" />}
+				<CurrencyPicker dataSource={currencyDataSource} isDisabled={currencyPickerIsDisabled} />
 			</div>
 		</Form>
 	);
