@@ -19,7 +19,7 @@ const AmountForm = ({ countries }: Props) => {
 	useEffect(() => {
 		let currencies = [];
 		for (let key in countries) currencies.push(countries[key]);
-		setCurrencyDataSource(currencies);
+		setCurrencyDataSource(currencies.sort());
 	}, [countries]);
 
 	const validateAmount = (e: BaseSyntheticEvent): void => {
