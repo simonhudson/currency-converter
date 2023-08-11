@@ -24,7 +24,7 @@ export const getStaticProps = async () => {
 };
 
 type Props = {
-	countries: Countries | undefined;
+	countries: Countries;
 };
 
 const Home = ({ countries }: Props) => {
