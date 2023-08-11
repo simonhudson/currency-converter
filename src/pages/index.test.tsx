@@ -1,7 +1,6 @@
 import React from 'react';
 import Home, { getStaticProps } from './index.page';
 import { screen, render } from '@testing-library/react';
-import { fireEvent } from '@testing-library/react';
 import countriesData from '@/test/mock-data/countries';
 
 const ORIGINAL_FETCH = global.fetch;
@@ -84,6 +83,7 @@ describe('Home', () => {
 			// Then
 			expect(screen.getByText('Sorry, we could not load currency data')).toBeInTheDocument();
 			expect(screen.queryByRole('form')).not.toBeInTheDocument();
+			expect(screen.queryByLabelText('Amount')).not.toBeInTheDocument();
 		});
 
 		it('countries data is available', () => {
@@ -94,38 +94,6 @@ describe('Home', () => {
 			expect(screen.queryByText('Sorry, we could not load currency data')).not.toBeInTheDocument();
 			expect(screen.getByRole('form')).toBeInTheDocument();
 			expect(screen.getByLabelText('Amount')).toBeInTheDocument();
-			expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-		});
-	});
-
-	describe('Input validation', () => {
-		it('should render error message for empty value', () => {
-			// Given
-			render(<Home countries={countriesData} />);
-			const input = screen.getByLabelText('Amount');
-			expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-
-			// When
-			fireEvent.change(input, { target: { value: '' } });
-			fireEvent.blur(input);
-
-			// Then
-			expect(screen.getByRole('alert')).toBeInTheDocument();
-			expect(screen.getByText('Please enter a value in the "Amount" field')).toBeInTheDocument();
-		});
-		it('should render error message for invalid value', () => {
-			// Given
-			render(<Home countries={countriesData} />);
-			const input = screen.getByLabelText('Amount');
-			expect(screen.queryByRole('alert')).not.toBeInTheDocument();
-
-			// When
-			fireEvent.change(input, { target: { value: '123.456' } });
-			fireEvent.blur(input);
-
-			// Then
-			expect(screen.getByRole('alert')).toBeInTheDocument();
-			expect(screen.getByText('123.456 is not a valid number')).toBeInTheDocument();
 		});
 	});
 });

@@ -1,4 +1,5 @@
-import { useEffect, useState, BaseSyntheticEvent } from 'react';
+import { useEffect, useState } from 'react';
+import AmountForm from '@/src/components/amount-form';
 
 type Countries = {
 	[key: string]: string;
@@ -28,46 +29,15 @@ type Props = {
 
 const Home = ({ countries }: Props) => {
 	const [dataLoadingError, setDataLoadingError] = useState<string | undefined>();
-	const [inputValue, setInputValue] = useState<string>('');
-	const [inputErrorMessage, setInputErrorMessage] = useState<string | undefined>();
-
-	//const [reverseConversionDirection, setReverseConversionDirection] = useState<boolean>(false);
 
 	useEffect(() => {
 		if (!countries) setDataLoadingError('Sorry, we could not load currency data');
 	}, [countries]);
 
-	const validateAmount = (e: BaseSyntheticEvent): void => {
-		const value: string = e.target.value;
-		const isDecimalValue: boolean = value.split('.').length > 1;
-		if (!value.length) setInputErrorMessage('Please enter a value in the "Amount" field');
-		if (isDecimalValue) setInputErrorMessage(`${value} is not a valid number`);
-	};
-
 	return (
 		<>
 			<h1>Currency Converter</h1>
-			{dataLoadingError ? (
-				<p>{dataLoadingError}</p>
-			) : (
-				<form aria-label="currency-converter">
-					<div>
-						<label htmlFor="amount">Amount</label>
-						<input
-							id="amount"
-							onBlur={(e) => validateAmount(e)}
-							onChange={(e) => setInputValue(e.target.value)}
-							type="number"
-							value={inputValue}
-						/>
-						{inputErrorMessage && (
-							<p id="input-error-message" role="alert">
-								{inputErrorMessage}
-							</p>
-						)}
-					</div>
-				</form>
-			)}
+			{dataLoadingError ? <p>{dataLoadingError}</p> : <AmountForm />}
 		</>
 	);
 };
