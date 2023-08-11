@@ -37,7 +37,7 @@ const Home = ({ countries }: Props) => {
 	return (
 		<>
 			<h1>Currency Converter</h1>
-			{dataLoadingError ? <p>{dataLoadingError}</p> : <AmountForm />}
+			{dataLoadingError ? <p>{dataLoadingError}</p> : <AmountForm countries={countries} />}
 		</>
 	);
 };

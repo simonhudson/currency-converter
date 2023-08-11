@@ -24,4 +24,7 @@ export const Input = styled.input`
 	}
 `;
 
-export const ErrorMessage = styled.p``;
+export const ErrorMessage = styled.p`
+	color: red;
+	font-weight: bold;
+`;
