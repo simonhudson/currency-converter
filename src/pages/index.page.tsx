@@ -61,7 +61,7 @@ const Home = ({ currencies }: Props) => {
 	const onCurrencySelection = (selectedValue: string, e: BaseSyntheticEvent): void => {
 		const isFromSelection = e.target.dataset.inputId.includes('from');
 		const isToSelection = e.target.dataset.inputId.includes('to');
-		const currencyCode = Object.keys(currencies).find((key) => selectedValue.includes(key)) ?? '';
+		const currencyCode = Object.keys(currencies!).find((key) => selectedValue.includes(key)) ?? '';
 		if (isFromSelection) setSelectedFromCurrency(currencyCode);
 		if (isToSelection) setSelectedToCurrency(currencyCode);
 	};
