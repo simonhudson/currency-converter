@@ -103,7 +103,7 @@ const TypeAhead = ({
 								return (
 									<ResultsItem
 										key={`results-list--${slug}`}
-										onClick={(e: BaseSyntheticEvent) => selectValueFromList(item, e)}
+										onClick={(e) => selectValueFromList(item, e)}
 										onKeyUp={(e) => {
 											if (returnKeyPressed(e)) selectValueFromList(item, e);
 										}}

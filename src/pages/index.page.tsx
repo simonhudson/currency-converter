@@ -1,4 +1,4 @@
-import { useEffect, useState, BaseSyntheticEvent } from 'react';
+import { useEffect, useState, BaseSyntheticEvent, useCallback } from 'react';
 import AmountForm from '@/src/components/amount-form';
 import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';
@@ -46,8 +46,7 @@ const Home = ({ currencies }: Props) => {
 		setCurrencyPickerDataSource(currencyNames.sort());
 	}, [currencies]);
 
-	const doConversion = async (e: BaseSyntheticEvent): Promise<void> => {
-		e.preventDefault();
+	const doConversion = useCallback(async (): Promise<void> => {
 		if (amount && selectedFromCurrency && selectedToCurrency) {
 			const response = await fetch(
 				`https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/${selectedFromCurrency}`
@@ -56,14 +55,16 @@ const Home = ({ currencies }: Props) => {
 			setSelectedFromValue(amount);
 			setSelectedToValue(Math.round(data.conversion_rates[selectedToCurrency] * amount));
 		}
-	};
+	}, [amount, selectedFromCurrency, selectedToCurrency]);
 
 	const switchConversionDirection = () => {
 		setSelectedFromCurrency(selectedToCurrency);
 		setSelectedToCurrency(selectedFromCurrency);
-		setSelectedFromValue(selectedToValue);
-		setSelectedToValue(selectedFromValue);
 	};
+
+	useEffect(() => {
+		doConversion();
+	}, [selectedFromCurrency, selectedToCurrency, doConversion]);
 
 	const onCurrencySelection = (selectedValue: string, e: BaseSyntheticEvent): void => {
 		const isFromSelection = e.target.dataset.inputId.includes('from');
@@ -86,7 +87,14 @@ const Home = ({ currencies }: Props) => {
 						onDirectionSwitch={switchConversionDirection}
 						onItemSelect={(item: string, e: BaseSyntheticEvent) => onCurrencySelection(item, e)}
 					/>
-					<Button onClick={(e) => doConversion(e)}>Convert</Button>
+					<Button
+						onClick={(e) => {
+							e.preventDefault();
+							doConversion();
+						}}
+					>
+						Convert
+					</Button>
 					{selectedFromValue && selectedToValue && (
 						<ConversionResult
 							from={{

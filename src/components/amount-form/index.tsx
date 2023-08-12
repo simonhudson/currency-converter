@@ -10,7 +10,7 @@ const AmountForm = ({ onValidInput }: Props) => {
 	const [inputErrorMessage, setInputErrorMessage] = useState<string | undefined>();
 
 	const validateAmount = (e: BaseSyntheticEvent): void => {
-		const value: string = e.target.value;
+		const value: string = e.target.value ?? '';
 		const isDecimalValue: boolean = value.includes('.');
 		if (value.length && !isDecimalValue) {
 			setInputErrorMessage(undefined);
