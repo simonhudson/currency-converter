@@ -58,6 +58,13 @@ const Home = ({ currencies }: Props) => {
 		}
 	};
 
+	const switchConversionDirection = () => {
+		setSelectedFromCurrency(selectedToCurrency);
+		setSelectedToCurrency(selectedFromCurrency);
+		setSelectedFromValue(selectedToValue);
+		setSelectedToValue(selectedFromValue);
+	};
+
 	const onCurrencySelection = (selectedValue: string, e: BaseSyntheticEvent): void => {
 		const isFromSelection = e.target.dataset.inputId.includes('from');
 		const isToSelection = e.target.dataset.inputId.includes('to');
@@ -76,6 +83,7 @@ const Home = ({ currencies }: Props) => {
 					<AmountForm onValidInput={(value) => setAmount(value)} />
 					<CurrencyPicker
 						dataSource={currencyPickerDataSource}
+						onDirectionSwitch={switchConversionDirection}
 						onItemSelect={(item: string, e: BaseSyntheticEvent) => onCurrencySelection(item, e)}
 					/>
 					<Button onClick={(e) => doConversion(e)}>Convert</Button>

@@ -4,10 +4,11 @@ import { Wrapper, ElementWrapper } from './index.styles';
 
 type Props = {
 	dataSource: string[];
+	onDirectionSwitch: () => void;
 	onItemSelect: (item: string, e: BaseSyntheticEvent) => void;
 };
 
-const CurrencyPicker = ({ dataSource, onItemSelect }: Props) => {
+const CurrencyPicker = ({ dataSource, onDirectionSwitch, onItemSelect }: Props) => {
 	return (
 		<Wrapper>
 			<ElementWrapper>
@@ -19,6 +20,9 @@ const CurrencyPicker = ({ dataSource, onItemSelect }: Props) => {
 					placeholder="Search currency"
 				/>
 			</ElementWrapper>
+			<div>
+				<button onClick={() => onDirectionSwitch()}>Switch</button>
+			</div>
 			<ElementWrapper>
 				<TypeAhead
 					dataSource={dataSource}
