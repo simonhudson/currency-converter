@@ -1,4 +1,4 @@
-import styled, { css } from 'styled-components';
+import styled from 'styled-components';
 import { rem } from 'polished';
 
 export const Input = styled.input`
@@ -6,7 +6,7 @@ export const Input = styled.input`
 	border-radius: ${rem(5)};
 	box-shadow: 0 0 5px #ddd;
 	font-size: ${rem(22)};
-	padding: ${rem(10)};
+	padding: ${rem(16)};
 	width: 100%;
 
 	&:focus {
@@ -19,18 +19,21 @@ export const Input = styled.input`
 `;
 
 export const Label = styled.label`
+	display: block;
 	font-weight: bold;
+	padding-bottom: ${rem(16)};
 `;
 
 export const LabelInfo = styled.span`
 	display: block;
+	font-size: ${rem(14)};
 	font-weight: normal;
 `;
 
 export const ErrorMessage = styled.span`
 	display: block;
 	color: red;
-	font-size: ${rem(10)};
+	font-size: ${rem(14)};
 	font-weight: normal;
 `;
 

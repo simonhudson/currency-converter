@@ -1,7 +1,7 @@
 import React from 'react';
 import Home, { getStaticProps } from './index.page';
 import { screen, render } from '@testing-library/react';
-import countriesData from '@/test/mock-data/countries';
+import currenciesData from '@/test/mock-data/currencies';
 
 const ORIGINAL_FETCH = global.fetch;
 
@@ -36,13 +36,13 @@ describe('Home', () => {
 
 		it('should handle error status code', async () => {
 			// Given
-			setFetchResponse(countriesData, 400);
+			setFetchResponse(currenciesData, 400);
 
 			// When
 			const staticProps = await getStaticProps();
 
 			// Then
-			expect(staticProps.props.countries).toEqual(undefined);
+			expect(staticProps.props.currencies).toEqual(undefined);
 		});
 
 		it('should handle undefined', async () => {
@@ -53,32 +53,32 @@ describe('Home', () => {
 			const staticProps = await getStaticProps();
 
 			// Then
-			expect(staticProps.props.countries).toEqual(undefined);
+			expect(staticProps.props.currencies).toEqual(undefined);
 		});
 		it('should handle success response', async () => {
 			// Given
-			setFetchResponse(countriesData, 200);
+			setFetchResponse(currenciesData, 200);
 
 			// When
 			const staticProps = await getStaticProps();
 
 			// Then
-			expect(staticProps.props.countries).toEqual(countriesData);
+			expect(staticProps.props.currencies).toEqual(currenciesData);
 		});
 	});
 
 	it(`should render expected heading`, () => {
 		// When
-		render(<Home countries={undefined} />);
+		render(<Home currencies={undefined} />);
 
 		// Then
 		expect(screen.getByRole('heading')).toHaveTextContent('Currency Converter');
 	});
 
 	describe('should render expected UI when ', () => {
-		it('no countries data available', () => {
+		it('no currencies data available', () => {
 			// When
-			render(<Home countries={undefined} />);
+			render(<Home currencies={undefined} />);
 
 			// Then
 			expect(screen.getByText('Sorry, we could not load currency data')).toBeInTheDocument();
@@ -86,13 +86,12 @@ describe('Home', () => {
 			expect(screen.queryByLabelText('Amount')).not.toBeInTheDocument();
 		});
 
-		it('countries data is available', () => {
+		it('currencies data is available', () => {
 			// When
-			render(<Home countries={countriesData} />);
+			render(<Home currencies={currenciesData} />);
 
 			// Then
 			expect(screen.queryByText('Sorry, we could not load currency data')).not.toBeInTheDocument();
-			expect(screen.getByRole('form')).toBeInTheDocument();
 			expect(screen.getByLabelText('Amount')).toBeInTheDocument();
 		});
 	});

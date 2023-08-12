@@ -1,6 +1,5 @@
 import { useState, BaseSyntheticEvent } from 'react';
 import { Input, Label, ErrorMessage } from '@/src/styles/forms.styles';
-import { Form } from './index.styles';
 
 type Props = {
 	onValidInput: (value: number) => void;
@@ -17,34 +16,36 @@ const AmountForm = ({ onValidInput }: Props) => {
 			setInputErrorMessage(undefined);
 			onValidInput(Number(value));
 		} else {
-			if (!value.length) setInputErrorMessage('Please enter a value in the "Amount" field');
+			if (!value.length) setInputErrorMessage('Error: Please enter a value in the "Amount" field.');
 			if (isDecimalValue)
 				setInputErrorMessage(
-					`${value} is not a valid number. Please enter whole numbers only, without decimals`
+					`Error: ${value} is not a valid number. Please enter whole numbers only, without decimals.`
 				);
 		}
 	};
 
 	return (
-		<Form aria-label="currency-converter">
-			<div>
-				<Label htmlFor="amount">
-					Amount
-					{!!inputErrorMessage && (
-						<ErrorMessage id="input-error-message" role="alert">
-							{inputErrorMessage}
-						</ErrorMessage>
-					)}
-				</Label>
-				<Input
-					id="amount"
-					onBlur={(e) => validateAmount(e)}
-					onChange={(e) => setInputValue(e.target.value)}
-					type="number"
-					value={inputValue}
-				/>
-			</div>
-		</Form>
+		<form>
+			<Label htmlFor="amount">
+				Amount
+				{!!inputErrorMessage && (
+					<ErrorMessage role="alert" id="input-error-message">
+						{inputErrorMessage}
+					</ErrorMessage>
+				)}
+			</Label>
+			<Input
+				aria-errormessage={`${!!inputErrorMessage ? 'input-error-message' : null}`}
+				aria-invalid={!!inputErrorMessage}
+				aria-required="true"
+				id="amount"
+				onBlur={(e) => validateAmount(e)}
+				onChange={(e) => setInputValue(e.target.value)}
+				placeholder="Whole numbers only"
+				type="number"
+				value={inputValue}
+			/>
+		</form>
 	);
 };
 

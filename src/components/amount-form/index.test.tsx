@@ -1,22 +1,22 @@
 import React from 'react';
-import Form from './index';
+import AmountForm from './index';
 import { screen, render } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 
 describe('Form', () => {
 	it('should render as expected', () => {
 		// When
-		render(<Form />);
+		initialise();
 
 		// Then
-		expect(screen.getByRole('form')).toBeInTheDocument();
 		expect(screen.getByLabelText('Amount')).toBeInTheDocument();
+		expect(screen.getByPlaceholderText('Whole numbers only')).toBeInTheDocument();
 	});
 
 	describe('Input validation', () => {
 		it('should render error message for empty value', () => {
 			// Given
-			render(<Form />);
+			initialise();
 			const input = screen.getByLabelText('Amount');
 			expect(screen.queryByRole('alert')).not.toBeInTheDocument();
 
@@ -26,11 +26,11 @@ describe('Form', () => {
 
 			// Then
 			expect(screen.getByRole('alert')).toBeInTheDocument();
-			expect(screen.getByText('Please enter a value in the "Amount" field')).toBeInTheDocument();
+			expect(screen.getByText('Error: Please enter a value in the "Amount" field.')).toBeInTheDocument();
 		});
 		it('should render error message for invalid value', () => {
 			// Given
-			render(<Form />);
+			initialise();
 			const input = screen.getByLabelText('Amount');
 			expect(screen.queryByRole('alert')).not.toBeInTheDocument();
 
@@ -40,7 +40,13 @@ describe('Form', () => {
 
 			// Then
 			expect(screen.getByRole('alert')).toBeInTheDocument();
-			expect(screen.getByText('123.456 is not a valid number')).toBeInTheDocument();
+			expect(
+				screen.getByText(
+					'Error: 123.456 is not a valid number. Please enter whole numbers only, without decimals.'
+				)
+			).toBeInTheDocument();
 		});
 	});
+
+	const initialise = () => render(<AmountForm onValidInput={jest.fn()} />);
 });

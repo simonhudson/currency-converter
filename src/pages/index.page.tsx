@@ -27,7 +27,7 @@ export const getStaticProps = async () => {
 };
 
 type Props = {
-	currencies: Currencies;
+	currencies?: Currencies;
 };
 
 const Home = ({ currencies }: Props) => {
