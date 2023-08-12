@@ -1,7 +1,8 @@
 'use client';
 
-import React, { useRef, useState } from 'react';
-import { Wrapper, Label, LabelInfo, Input, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
+import React, { BaseSyntheticEvent, useEffect, useRef, useState } from 'react';
+import { Label, LabelInfo } from '@/src/styles/forms.styles';
+import { Wrapper, StyledInput, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
 import AssistiveContent from './assistive-content';
 import returnKeyPressed from '@/src/helpers/returnKeyPressed';
 
@@ -11,6 +12,7 @@ type Props = {
 	isDisabled?: boolean;
 	label: string;
 	labelInfo?: string;
+	onItemSelect?: (item: string, e: BaseSyntheticEvent) => void;
 	minQueryLength?: number;
 	placeholder?: string;
 	showAllResultsOnFocus?: boolean;
@@ -22,6 +24,7 @@ const TypeAhead = ({
 	isDisabled,
 	label,
 	labelInfo,
+	onItemSelect,
 	minQueryLength = 3,
 	placeholder,
 	showAllResultsOnFocus = true,
@@ -32,6 +35,10 @@ const TypeAhead = ({
 	const [results, setResults] = useState<string[]>([]);
 	const [selectedValue, setSelectedValue] = useState<string | null>(null);
 	const [inputValue, setInputValue] = useState<string>('');
+
+	useEffect(() => {
+		window.addEventListener('click', clearResults);
+	}, []);
 
 	const clearResults = (): void => setResults([]);
 	const clearSelectedValue = (): void => setSelectedValue(null);
@@ -52,14 +59,15 @@ const TypeAhead = ({
 		}
 	};
 
-	const selectValueFromList = (item: string): void => {
+	const selectValueFromList = (item: string, e: BaseSyntheticEvent): void => {
 		setInputValue(item);
 		setSelectedValue(item);
 		clearResults();
+		if (onItemSelect) onItemSelect(item, e);
 	};
 
 	return (
-		<Wrapper>
+		<Wrapper onClick={(e) => e.stopPropagation()}>
 			<AssistiveContent
 				minQueryLength={minQueryLength}
 				queryLength={getInputValueLength()}
@@ -70,7 +78,7 @@ const TypeAhead = ({
 				{label}
 				{labelInfo && <LabelInfo>{labelInfo}</LabelInfo>}
 			</Label>
-			<Input
+			<StyledInput
 				aria-describedby="typeahead-assistive-hint"
 				autoComplete="off"
 				disabled={isDisabled}
@@ -95,11 +103,12 @@ const TypeAhead = ({
 								return (
 									<ResultsItem
 										key={`results-list--${slug}`}
-										onClick={() => selectValueFromList(item)}
+										onClick={(e: BaseSyntheticEvent) => selectValueFromList(item, e)}
 										onKeyUp={(e) => {
-											if (returnKeyPressed(e)) selectValueFromList(item);
+											if (returnKeyPressed(e)) selectValueFromList(item, e);
 										}}
 										tabIndex={0}
+										data-input-id={inputId}
 									>
 										{item}
 									</ResultsItem>

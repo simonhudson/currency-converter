@@ -1,41 +1,29 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
+import { Input } from '@/src/styles/forms.styles';
 
-const BORDER = '1px solid #aaa';
+const BORDER = '1px solid #ddd';
 
 export const Wrapper = styled.div`
 	position: relative;
 `;
 
-export const Label = styled.label`
-	display: block;
-	font-weight: bold;
-	margin-bottom: ${rem(10)};
-
-	&[aria-disabled='true'] {
-		opacity: 0.35;
-	}
-`;
-
-export const LabelInfo = styled.span`
-	display: block;
-	font-weight: normal;
-	margin-top: ${rem(7)};
-`;
-
-export const Input = styled.input`
-	width: 100%;
-
-	&[disabled] {
-		opacity: 0.35;
+export const StyledInput = styled(Input)`
+	&:focus {
+		border-bottom-right-radius: 0;
+		border-bottom-left-radius: 0;
 	}
 `;
 
 export const ResultsWrapper = styled.div`
 	background: #ffffff;
-	border: ${BORDER};
+	border-radius: ${rem(5)};
+	border: none;
 	bottom: calc(0 - 100%);
+	box-shadow: 0 0 5px #ddd;
 	left: 0;
+	max-height: 300px;
+	overflow: auto;
 	position: absolute;
 	width: 100%;
 	z-index: 1;

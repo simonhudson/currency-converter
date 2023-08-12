@@ -1,44 +1,41 @@
-import { useEffect, useState, BaseSyntheticEvent } from 'react';
-import { Form, Label, Input, ErrorMessage } from './index.styles';
-import CurrencyPicker from '@/src/components/currency-picker';
-
-type Countries = {
-	[key: string]: string;
-};
+import { useState, BaseSyntheticEvent } from 'react';
+import { Input, Label, ErrorMessage } from '@/src/styles/forms.styles';
+import { Form } from './index.styles';
 
 type Props = {
-	countries: Countries;
+	onValidInput: (value: number) => void;
 };
 
-const AmountForm = ({ countries }: Props) => {
+const AmountForm = ({ onValidInput }: Props) => {
 	const [inputValue, setInputValue] = useState<string>('');
 	const [inputErrorMessage, setInputErrorMessage] = useState<string | undefined>();
-	const [currencyDataSource, setCurrencyDataSource] = useState<string[]>([]);
-	const [currencyPickerIsDisabled, setCurrencyPickerIsDisabled] = useState<boolean>(true);
-
-	useEffect(() => {
-		let currencies = [];
-		for (let key in countries) currencies.push(countries[key]);
-		setCurrencyDataSource(currencies.sort());
-	}, [countries]);
 
 	const validateAmount = (e: BaseSyntheticEvent): void => {
 		const value: string = e.target.value;
 		const isDecimalValue: boolean = value.includes('.');
 		if (value.length && !isDecimalValue) {
 			setInputErrorMessage(undefined);
-			setCurrencyPickerIsDisabled(false);
+			onValidInput(Number(value));
 		} else {
-			setCurrencyPickerIsDisabled(true);
 			if (!value.length) setInputErrorMessage('Please enter a value in the "Amount" field');
-			if (isDecimalValue) setInputErrorMessage(`${value} is not a valid number`);
+			if (isDecimalValue)
+				setInputErrorMessage(
+					`${value} is not a valid number. Please enter whole numbers only, without decimals`
+				);
 		}
 	};
 
 	return (
 		<Form aria-label="currency-converter">
 			<div>
-				<Label htmlFor="amount">Amount</Label>
+				<Label htmlFor="amount">
+					Amount
+					{!!inputErrorMessage && (
+						<ErrorMessage id="input-error-message" role="alert">
+							{inputErrorMessage}
+						</ErrorMessage>
+					)}
+				</Label>
 				<Input
 					id="amount"
 					onBlur={(e) => validateAmount(e)}
@@ -46,12 +43,6 @@ const AmountForm = ({ countries }: Props) => {
 					type="number"
 					value={inputValue}
 				/>
-				{!!inputErrorMessage && (
-					<ErrorMessage id="input-error-message" role="alert">
-						{inputErrorMessage}
-					</ErrorMessage>
-				)}
-				<CurrencyPicker dataSource={currencyDataSource} isDisabled={currencyPickerIsDisabled} />
 			</div>
 		</Form>
 	);

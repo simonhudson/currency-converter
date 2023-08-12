@@ -2,6 +2,11 @@
 
 https://currency-converter-simonhudson.vercel.app
 
+## Running locally
+
+1. Run `npm run dev`
+2. Navigate to http://localhost:3000
+
 ## Architecture
 
 - Used [`create-next-app`](https://nextjs.org/docs/pages/api-reference/create-next-app) to quickly scaffold app

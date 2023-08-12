@@ -1,21 +1,21 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, BaseSyntheticEvent } from 'react';
 import TypeAhead from '@/src/components/typeahead';
 import { Wrapper, ElementWrapper } from './index.styles';
 
 type Props = {
 	dataSource: string[];
-	isDisabled?: boolean;
+	onItemSelect: (item: string, e: BaseSyntheticEvent) => void;
 };
 
-const CurrencyPicker = ({ dataSource, isDisabled }: Props) => {
+const CurrencyPicker = ({ dataSource, onItemSelect }: Props) => {
 	return (
 		<Wrapper>
 			<ElementWrapper>
 				<TypeAhead
 					dataSource={dataSource}
 					inputId="currency-picker-from"
-					isDisabled={isDisabled}
 					label="From"
+					onItemSelect={onItemSelect}
 					placeholder="Search currency"
 				/>
 			</ElementWrapper>
@@ -23,8 +23,8 @@ const CurrencyPicker = ({ dataSource, isDisabled }: Props) => {
 				<TypeAhead
 					dataSource={dataSource}
 					inputId="currency-picker-to"
-					isDisabled={isDisabled}
 					label="To"
+					onItemSelect={onItemSelect}
 					placeholder="Search currency"
 				/>
 			</ElementWrapper>
