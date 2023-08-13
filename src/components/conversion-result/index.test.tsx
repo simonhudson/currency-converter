@@ -24,7 +24,10 @@ describe('ConversionResult', () => {
 
 		// Then
 		expect(screen.getByRole('alert')).toBeInTheDocument();
-		expect(screen.getByText('12,345 XXX is equivalent to 67,890 YYY')).toBeInTheDocument();
+		// expect(screen.getByText('12,345 XXX is equivalent to 67,890 YYY')).toBeInTheDocument();
+		expect(
+			screen.getByText((_, element) => element!.textContent === '12,345 XXX is equivalent to 67,890 YYY')
+		).toBeInTheDocument();
 		expect(
 			screen.queryByText('Your conversion has expired. Please fill in the form again.')
 		).not.toBeInTheDocument();
@@ -45,7 +48,9 @@ describe('ConversionResult', () => {
 			/>
 		);
 		expect(screen.getByRole('alert')).toBeInTheDocument();
-		expect(screen.getByText('12,345 XXX is equivalent to 67,890 YYY')).toBeInTheDocument();
+		expect(
+			screen.getByText((_, element) => element!.textContent === '12,345 XXX is equivalent to 67,890 YYY')
+		).toBeInTheDocument();
 		expect(
 			screen.queryByText('Your conversion has expired. Please fill in the form again.')
 		).not.toBeInTheDocument();
@@ -57,7 +62,9 @@ describe('ConversionResult', () => {
 
 		// Then
 		expect(screen.getByRole('alert')).toBeInTheDocument();
-		expect(screen.queryByText('12,345 XXX is equivalent to 67,890 YYY')).not.toBeInTheDocument();
+		expect(
+			screen.queryByText((_, element) => element!.textContent === '12,345 XXX is equivalent to 67,890 YYY')
+		).not.toBeInTheDocument();
 		expect(screen.getByText('Your conversion has expired. Please fill in the form again.')).toBeInTheDocument();
 	});
 });
