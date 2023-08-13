@@ -62,11 +62,8 @@ const Home = ({ currencies }: Props) => {
 	const switchConversionDirection = () => {
 		setSelectedFromCurrency(selectedToCurrency);
 		setSelectedToCurrency(selectedFromCurrency);
-	};
-
-	useEffect(() => {
 		doConversion();
-	}, [selectedFromCurrency, selectedToCurrency, doConversion]);
+	};
 
 	const onCurrencySelection = (selectedValue: string, e: BaseSyntheticEvent): void => {
 		const isFromSelection = e.target.dataset.inputId.includes('from');

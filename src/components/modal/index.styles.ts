@@ -1,6 +1,8 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 
+const HIDE_MODAL_AT_DEVICE_WIDTH = '768px';
+
 export const Overlay = styled.div`
 	align-items: flex-start;
 	background: rgba(0, 0, 0, 0.65);
@@ -12,6 +14,11 @@ export const Overlay = styled.div`
 	top: 0;
 	width: 100%;
 	z-index: 1;
+
+	@media only screen and (min-width: ${HIDE_MODAL_AT_DEVICE_WIDTH}) {
+		background: 0;
+		position: static;
+	}
 `;
 
 export const Wrapper = styled.div`
@@ -26,6 +33,11 @@ export const Wrapper = styled.div`
 	top: ${rem(32)};
 	width: 80%;
 	z-index: 2;
+
+	@media only screen and (min-width: ${HIDE_MODAL_AT_DEVICE_WIDTH}) {
+		box-shadow: none;
+		width: 100%;
+	}
 `;
 
 export const CloseButton = styled.button`
@@ -34,4 +46,8 @@ export const CloseButton = styled.button`
 	position: absolute;
 	right: ${rem(10)};
 	top: ${rem(10)};
+
+	@media only screen and (min-width: ${HIDE_MODAL_AT_DEVICE_WIDTH}) {
+		display: none;
+	}
 `;
