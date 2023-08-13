@@ -2,7 +2,7 @@ import { useState, ReactNode } from 'react';
 import { Overlay, Wrapper, CloseButton } from './index.styles';
 
 type Props = {
-	children: ReactNode;
+	children?: ReactNode;
 };
 
 const Modal = ({ children }: Props) => {
@@ -12,7 +12,7 @@ const Modal = ({ children }: Props) => {
 		<>
 			{!hideModal ? (
 				<Overlay>
-					<Wrapper>
+					<Wrapper aria-modal="true" role="dialog">
 						<CloseButton onClick={() => setHideModal(true)}>Close</CloseButton>
 						{children}
 					</Wrapper>

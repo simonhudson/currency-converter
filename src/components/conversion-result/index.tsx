@@ -14,9 +14,7 @@ type Props = {
 const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void; (arg0: boolean): void }): void => {
 	var endTime: number, hours: number, mins: number, msLeft: number, time: Date;
 
-	const twoDigits = (n: number): number | string => {
-		return n <= 9 ? '0' + n : n;
-	};
+	const twoDigits = (n: number): number | string => (n <= 9 ? '0' + n : n);
 
 	const updateTimer = (): void => {
 		msLeft = endTime - +new Date();

@@ -17,6 +17,7 @@ export const Overlay = styled.div`
 	${media.tabletPortrait(`
 		background: 0;
 		position: static;
+		z-index: auto;
 	`)};
 `;
 
@@ -36,6 +37,7 @@ export const Wrapper = styled.div`
 	${media.tabletPortrait(`
 		box-shadow: none;
 		width: 100%;
+		z-index: auto;
 	`)};
 `;
 
