@@ -3,7 +3,7 @@ import AmountForm from './index';
 import { screen, render } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
 
-describe('Form', () => {
+describe('AmountForm', () => {
 	it('should render as expected', () => {
 		// When
 		initialise();

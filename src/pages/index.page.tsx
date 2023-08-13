@@ -85,7 +85,6 @@ const Home = ({ currencies }: Props) => {
 					<AmountForm onValidInput={(value) => setAmount(value)} />
 					<CurrencyPicker
 						dataSource={currencyPickerDataSource}
-						onDirectionSwitch={switchConversionDirection}
 						onItemSelect={(item: string, e: BaseSyntheticEvent) => onCurrencySelection(item, e)}
 					/>
 					<Button
@@ -108,7 +107,7 @@ const Home = ({ currencies }: Props) => {
 									value: selectedToValue,
 								}}
 							/>
-							<SwitchDirection onClick={() => switchConversionDirection} />
+							<SwitchDirection onClick={switchConversionDirection} />
 						</>
 					)}
 				</>

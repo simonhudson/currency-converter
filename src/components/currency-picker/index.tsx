@@ -4,11 +4,10 @@ import { Wrapper, ElementWrapper } from './index.styles';
 
 type Props = {
 	dataSource: string[];
-	onDirectionSwitch: () => void;
 	onItemSelect: (item: string, e: BaseSyntheticEvent) => void;
 };
 
-const CurrencyPicker = ({ dataSource, onDirectionSwitch, onItemSelect }: Props) => {
+const CurrencyPicker = ({ dataSource, onItemSelect }: Props) => {
 	return (
 		<Wrapper>
 			<ElementWrapper>
