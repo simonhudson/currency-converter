@@ -31,7 +31,7 @@ export const Wrapper = styled.div`
 	position: relative;
 	text-align: center;
 	top: ${rem(32)};
-	width: 80%;
+	width: 90%;
 	z-index: 2;
 
 	${media.tabletPortrait(`
