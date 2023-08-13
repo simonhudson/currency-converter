@@ -22,6 +22,19 @@ export const Overlay = styled.div`
 `;
 
 export const Wrapper = styled.div`
+	@keyframes grow {
+		from {
+			transform: scale(0);
+		}
+		to {
+			transform: scale(1);
+		}
+	}
+
+	animation-duration: 0.35s;
+	animation-iteration-count: 1;
+	animation-name: grow;
+	animation-timing-function: linear;
 	background: #f2f9ff;
 	border-radius: ${rem(10)};
 	box-shadow: 0 0 5px #000;
@@ -45,8 +58,8 @@ export const CloseButton = styled.button`
 	background: 0;
 	border: 0;
 	position: absolute;
-	right: ${rem(10)};
-	top: ${rem(10)};
+	right: ${rem(16)};
+	top: ${rem(16)};
 
 	${media.tabletPortrait(`
 		display: none;

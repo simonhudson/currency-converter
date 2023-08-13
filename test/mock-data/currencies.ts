@@ -1,4 +1,4 @@
-const countriesData = {
+const currenciesData = {
 	AED: 'United Arab Emirates Dirham',
 	AFN: 'Afghan Afghani',
 	ALL: 'Albanian Lek',
@@ -171,4 +171,4 @@ const countriesData = {
 	ZWL: 'Zimbabwean Dollar',
 };
 
-export default countriesData;
+export default currenciesData;

@@ -7,16 +7,31 @@ describe('ConversionResult', () => {
 		jest.useFakeTimers();
 	});
 
+	it('should render conversion error message', () => {
+		// When
+		render(<ConversionResult errorMessage="Whoops! This is an error message" />);
+
+		// Then
+		expect(screen.getByRole('alert')).toBeInTheDocument();
+		expect(screen.getByText('Whoops! This is an error message')).toBeInTheDocument();
+		expect(
+			screen.queryByText((_, element) => element!.textContent === '12,345 XXX is equivalent to 67,890 YYY')
+		).not.toBeInTheDocument();
+		expect(
+			screen.queryByText('Your conversion has expired. Please fill in the form again.')
+		).not.toBeInTheDocument();
+	});
+
 	it('should render as expected when conversion has not expired', () => {
 		// When
 		render(
 			<ConversionResult
 				from={{
-					currency: 'XXX',
+					name: 'XXX',
 					value: 12345,
 				}}
 				to={{
-					currency: 'YYY',
+					name: 'YYY',
 					value: 67890,
 				}}
 			/>
@@ -24,7 +39,7 @@ describe('ConversionResult', () => {
 
 		// Then
 		expect(screen.getByRole('alert')).toBeInTheDocument();
-		// expect(screen.getByText('12,345 XXX is equivalent to 67,890 YYY')).toBeInTheDocument();
+		expect(screen.queryByText('Whoops! This is an error message')).not.toBeInTheDocument();
 		expect(
 			screen.getByText((_, element) => element!.textContent === '12,345 XXX is equivalent to 67,890 YYY')
 		).toBeInTheDocument();
@@ -38,16 +53,17 @@ describe('ConversionResult', () => {
 		render(
 			<ConversionResult
 				from={{
-					currency: 'XXX',
+					name: 'XXX',
 					value: 12345,
 				}}
 				to={{
-					currency: 'YYY',
+					name: 'YYY',
 					value: 67890,
 				}}
 			/>
 		);
 		expect(screen.getByRole('alert')).toBeInTheDocument();
+		expect(screen.queryByText('Whoops! This is an error message')).not.toBeInTheDocument();
 		expect(
 			screen.getByText((_, element) => element!.textContent === '12,345 XXX is equivalent to 67,890 YYY')
 		).toBeInTheDocument();

@@ -2,13 +2,15 @@ import { SetStateAction, useEffect, useState } from 'react';
 import { Paragraph } from './index.styles';
 
 type CurrencyData = {
-	currency: string;
+	name: string;
 	value: number;
 };
 
 type Props = {
-	from: CurrencyData;
-	to: CurrencyData;
+	from?: CurrencyData;
+	to?: CurrencyData;
+	errorMessage?: string;
+	isLoading?: boolean;
 };
 
 const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void; (arg0: boolean): void }): void => {
@@ -36,13 +38,14 @@ const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void;
 	}
 };
 
-const ConversionResult = ({ from, to }: Props) => {
+const ConversionResult = ({ from, to, errorMessage, isLoading }: Props) => {
 	const [hasExpired, setHasExpired] = useState<boolean>(false);
 
 	useEffect(() => {
 		startCountdown(setHasExpired);
 	}, []);
 
+	if (errorMessage) return <p role="alert">{errorMessage}</p>;
 	return (
 		<>
 			{hasExpired ? (
@@ -50,8 +53,8 @@ const ConversionResult = ({ from, to }: Props) => {
 			) : (
 				<>
 					<Paragraph role="alert">
-						{from.value.toLocaleString()} {from.currency} <span>is equivalent to </span>
-						{to.value.toLocaleString()} {to.currency}
+						{from?.value.toLocaleString()} {from?.name} <span>is equivalent to </span>
+						{to?.value.toLocaleString()} {to?.name}
 					</Paragraph>
 					<Paragraph>
 						Expires in <span id="countdown-timer"></span>

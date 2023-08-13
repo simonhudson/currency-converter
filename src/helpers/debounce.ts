@@ -1,15 +1,14 @@
-const debounce = (func, wait, immediate) => {
-	wait = wait || 250;
-	let timeout;
+const debounce = (func: { (): void; apply?: any }) => {
+	const wait = 250;
+	let timeout: string | number | NodeJS.Timeout | null | undefined;
 	return function () {
 		const context = this;
 		const args = arguments;
 
 		const later = () => {
 			timeout = null;
-			if (!immediate) func.apply(context, args);
 		};
-		const callNow = immediate && !timeout;
+		const callNow = !timeout;
 		clearTimeout(timeout);
 		timeout = setTimeout(later, wait);
 		if (callNow) func.apply(context, args);
