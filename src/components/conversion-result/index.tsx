@@ -40,7 +40,6 @@ const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void;
 
 const ConversionResult = ({ from, to }: Props) => {
 	const [hasExpired, setHasExpired] = useState<boolean>(false);
-	const [hideModal, setHideModal] = useState<boolean>(false);
 
 	useEffect(() => {
 		startCountdown(setHasExpired);

@@ -1,7 +1,11 @@
-import { useState } from 'react';
+import { useState, ReactNode } from 'react';
 import { Overlay, Wrapper, CloseButton } from './index.styles';
 
-const Modal = ({ children }) => {
+type Props = {
+	children: ReactNode;
+};
+
+const Modal = ({ children }: Props) => {
 	const [hideModal, setHideModal] = useState<boolean>(false);
 
 	return (
