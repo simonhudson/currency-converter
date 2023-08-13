@@ -7,6 +7,7 @@ type AssistiveContentProps = {
 	queryLength: number;
 	resultsLength: number;
 	selectedValue: string | null;
+	inputId: string;
 };
 
 const VisuallyHidden = styled.div`
@@ -21,7 +22,13 @@ const VisuallyHidden = styled.div`
 	border: 0;
 `;
 
-const AssistiveContent = ({ minQueryLength, queryLength, resultsLength, selectedValue }: AssistiveContentProps) => {
+const AssistiveContent = ({
+	minQueryLength,
+	queryLength,
+	resultsLength,
+	selectedValue,
+	inputId,
+}: AssistiveContentProps) => {
 	const QUERY_TOO_SHORT: boolean = queryLength > 0 && queryLength < minQueryLength;
 	const NO_RESULTS: boolean = resultsLength === 0;
 
@@ -51,7 +58,7 @@ const AssistiveContent = ({ minQueryLength, queryLength, resultsLength, selected
 
 	return (
 		<VisuallyHidden>
-			<p id="typeahead-assistive-hint">
+			<p id={`typeahead-assistive-hint--${inputId}`}>
 				When autocomplete results are available use tab key to review and enter to select. Touch device users,
 				explore by touch or with swipe gestures.
 			</p>

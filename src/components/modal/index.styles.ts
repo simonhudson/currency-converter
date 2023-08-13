@@ -40,7 +40,7 @@ export const Wrapper = styled.div`
 	box-shadow: 0 0 5px #000;
 	font-weight: bold;
 	height: auto;
-	padding: ${rem(32)} ${rem(16)} ${rem(16)};
+	padding: ${rem(48)} ${rem(16)} ${rem(16)};
 	position: relative;
 	text-align: center;
 	top: ${rem(32)};
@@ -48,6 +48,7 @@ export const Wrapper = styled.div`
 	z-index: 2;
 
 	${media.tabletPortrait(`
+		animation-name: none;
 		box-shadow: none;
 		width: 100%;
 		z-index: auto;

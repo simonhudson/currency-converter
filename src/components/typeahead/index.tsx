@@ -73,6 +73,7 @@ const TypeAhead = ({
 				queryLength={getInputValueLength()}
 				resultsLength={results.length}
 				selectedValue={selectedValue}
+				inputId={inputId}
 			/>
 			<Label htmlFor={inputId} aria-disabled={isDisabled}>
 				{label}

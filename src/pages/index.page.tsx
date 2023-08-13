@@ -3,7 +3,7 @@ import AmountForm from '@/src/components/amount-form';
 import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';
 import { Button } from '@/src/styles/forms.styles';
-import SwitchDirection from '@/src/components/switch-direction';
+
 import Modal from '@/src/components/modal';
 
 type Currencies = {
@@ -103,7 +103,11 @@ const Home = ({ currencies }: Props) => {
 
 	const onSubmit = (): void => {
 		setSubmitted(true);
-		doConversion();
+	};
+
+	const onModalClose = (): void => {
+		setConvertFrom(undefined);
+		setConvertTo(undefined);
 	};
 
 	return (
@@ -128,7 +132,7 @@ const Home = ({ currencies }: Props) => {
 					</Button>
 					{conversionErrorMessage ||
 						(convertedValue && convertFrom && convertTo && (
-							<Modal>
+							<Modal onClose={onModalClose}>
 								<ConversionResult
 									errorMessage={conversionErrorMessage}
 									from={{
@@ -139,8 +143,8 @@ const Home = ({ currencies }: Props) => {
 										name: convertTo.name,
 										value: convertedValue.to,
 									}}
+									onSwitchDirectionClick={switchConversionDirection}
 								/>
-								<SwitchDirection onClick={switchConversionDirection} />
 							</Modal>
 						))}
 				</>
