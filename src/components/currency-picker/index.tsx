@@ -1,8 +1,6 @@
 import { BaseSyntheticEvent } from 'react';
 import TypeAhead from '@/src/components/typeahead';
 import { Wrapper, ElementWrapper } from './index.styles';
-import { Button } from '@/src/styles/forms.styles';
-import ReverseIcon from './reverse-icon';
 
 type Props = {
 	dataSource: string[];
@@ -22,11 +20,7 @@ const CurrencyPicker = ({ dataSource, onDirectionSwitch, onItemSelect }: Props) 
 					placeholder="Search currency"
 				/>
 			</ElementWrapper>
-			<div>
-				<Button onClick={() => onDirectionSwitch()}>
-					<ReverseIcon />
-				</Button>
-			</div>
+
 			<ElementWrapper>
 				<TypeAhead
 					dataSource={dataSource}

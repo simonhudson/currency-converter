@@ -1,18 +1,10 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
-import { Input } from '@/src/styles/forms.styles';
 
 const BORDER = '1px solid #ddd';
 
 export const Wrapper = styled.div`
 	position: relative;
-`;
-
-export const StyledInput = styled(Input)`
-	&:focus {
-		border-bottom-right-radius: 0;
-		border-bottom-left-radius: 0;
-	}
 `;
 
 export const ResultsWrapper = styled.div`

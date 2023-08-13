@@ -5,7 +5,6 @@ export const Input = styled.input`
 	border: none;
 	border-radius: ${rem(5)};
 	box-shadow: 0 0 5px #ddd;
-	font-size: ${rem(22)};
 	padding: ${rem(16)};
 	width: 100%;
 
@@ -37,15 +36,24 @@ export const ErrorMessage = styled.span`
 	font-weight: normal;
 `;
 
-export const Button = styled.button`
-	background: #0074cc;
+const ButtonCommon = styled.button`
 	border: 0;
 	border-radius: ${rem(5)};
-	color: #fff;
 	display: block;
 	font-size: ${rem(16)};
 	font-weight: bold;
 	margin: ${rem(20)} auto;
 	padding: ${rem(10)} ${rem(30)};
 	text-align: center;
+`;
+
+export const Button = styled(ButtonCommon)`
+	background: #0074cc;
+	color: #fff;
+`;
+
+export const ButtonSecondary = styled(ButtonCommon)`
+	background: #fff;
+	border: 2px solid #0074cc;
+	color: #0074cc;
 `;

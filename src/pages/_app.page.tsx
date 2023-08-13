@@ -8,6 +8,7 @@ import isPropValid from '@emotion/is-prop-valid';
 const AppWrapper = styled.div`
 	height: 100vh;
 	margin: 0 auto;
+	padding: 20px 0;
 	width: 80%;
 `;
 

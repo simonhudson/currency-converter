@@ -1,8 +1,8 @@
 'use client';
 
 import React, { BaseSyntheticEvent, useEffect, useRef, useState } from 'react';
-import { Label, LabelInfo } from '@/src/styles/forms.styles';
-import { Wrapper, StyledInput, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
+import { Label, LabelInfo, Input } from '@/src/styles/forms.styles';
+import { Wrapper, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
 import AssistiveContent from './assistive-content';
 import returnKeyPressed from '@/src/helpers/returnKeyPressed';
 
@@ -78,7 +78,7 @@ const TypeAhead = ({
 				{label}
 				{labelInfo && <LabelInfo>{labelInfo}</LabelInfo>}
 			</Label>
-			<StyledInput
+			<Input
 				aria-describedby="typeahead-assistive-hint"
 				autoComplete="off"
 				disabled={isDisabled}

@@ -3,6 +3,7 @@ import AmountForm from '@/src/components/amount-form';
 import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';
 import { Button } from '@/src/styles/forms.styles';
+import SwitchDirection from '@/src/components/switch-direction';
 
 type Currencies = {
 	[key: string]: string;
@@ -96,16 +97,19 @@ const Home = ({ currencies }: Props) => {
 						Convert
 					</Button>
 					{selectedFromValue && selectedToValue && (
-						<ConversionResult
-							from={{
-								currency: selectedFromCurrency,
-								value: selectedFromValue,
-							}}
-							to={{
-								currency: selectedToCurrency,
-								value: selectedToValue,
-							}}
-						/>
+						<>
+							<ConversionResult
+								from={{
+									currency: selectedFromCurrency,
+									value: selectedFromValue,
+								}}
+								to={{
+									currency: selectedToCurrency,
+									value: selectedToValue,
+								}}
+							/>
+							<SwitchDirection onClick={() => switchConversionDirection} />
+						</>
 					)}
 				</>
 			)}
