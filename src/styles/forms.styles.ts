@@ -53,7 +53,7 @@ export const Button = styled(ButtonCommon)`
 `;
 
 export const ButtonSecondary = styled(ButtonCommon)`
-	background: #fff;
+	background: transparent;
 	border: 2px solid #0074cc;
 	color: #0074cc;
 `;

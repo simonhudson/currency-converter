@@ -1,5 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import { Wrapper } from './index.styles';
+import { Paragraph } from './index.styles';
 
 type CurrencyData = {
 	currency: string;
@@ -40,27 +40,28 @@ const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void;
 
 const ConversionResult = ({ from, to }: Props) => {
 	const [hasExpired, setHasExpired] = useState<boolean>(false);
+	const [hideModal, setHideModal] = useState<boolean>(false);
 
 	useEffect(() => {
 		startCountdown(setHasExpired);
 	}, []);
 
 	return (
-		<Wrapper>
+		<>
 			{hasExpired ? (
-				<p role="alert">Your conversion has expired. Please fill in the form again.</p>
+				<Paragraph role="alert">Your conversion has expired. Please fill in the form again.</Paragraph>
 			) : (
 				<>
-					<p role="alert">
-						{from.value.toLocaleString()} {from.currency} is equivalent to {to.value.toLocaleString()}{' '}
-						{to.currency}
-					</p>
-					<p>
+					<Paragraph role="alert">
+						{from.value.toLocaleString()} {from.currency} <span>is equivalent to </span>
+						{to.value.toLocaleString()} {to.currency}
+					</Paragraph>
+					<Paragraph>
 						Expires in <span id="countdown-timer"></span>
-					</p>
+					</Paragraph>
 				</>
 			)}
-		</Wrapper>
+		</>
 	);
 };
 

@@ -4,6 +4,7 @@ import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';
 import { Button } from '@/src/styles/forms.styles';
 import SwitchDirection from '@/src/components/switch-direction';
+import Modal from '@/src/components/modal';
 
 type Currencies = {
 	[key: string]: string;
@@ -96,7 +97,7 @@ const Home = ({ currencies }: Props) => {
 						Convert
 					</Button>
 					{selectedFromValue && selectedToValue && (
-						<>
+						<Modal>
 							<ConversionResult
 								from={{
 									currency: selectedFromCurrency,
@@ -108,7 +109,7 @@ const Home = ({ currencies }: Props) => {
 								}}
 							/>
 							<SwitchDirection onClick={switchConversionDirection} />
-						</>
+						</Modal>
 					)}
 				</>
 			)}
