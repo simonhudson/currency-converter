@@ -14,7 +14,7 @@ type Props = {
 	showAllResultsOnFocus?: boolean;
 };
 
-const TypeAhead = forwardRef(
+const TypeAhead = forwardRef<HTMLInputElement, Props>(
 	(
 		{ dataSource, inputId, label, labelInfo, minQueryLength = 3, placeholder, showAllResultsOnFocus = true }: Props,
 		ref

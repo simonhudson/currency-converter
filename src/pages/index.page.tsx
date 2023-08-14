@@ -125,7 +125,8 @@ const Home = ({ currencies }: Props) => {
 					<AmountForm onValidInput={(value: number) => setAmount(value)} ref={amountInputRef} />
 					<CurrencyPicker
 						dataSource={currencyPickerDataSource}
-						ref={{ from: convertFromInputRef, to: convertToInputRef }}
+						fromInputRef={convertFromInputRef}
+						toInputRef={convertToInputRef}
 					/>
 					<Button
 						onClick={(e) => {
