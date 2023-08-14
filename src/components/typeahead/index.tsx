@@ -12,7 +12,6 @@ type Props = {
 	isDisabled?: boolean;
 	label: string;
 	labelInfo?: string;
-	onItemSelect?: (item: string, e: BaseSyntheticEvent) => void;
 	minQueryLength?: number;
 	placeholder?: string;
 	showAllResultsOnFocus?: boolean;
@@ -26,7 +25,6 @@ const TypeAhead = forwardRef(
 			isDisabled,
 			label,
 			labelInfo,
-			onItemSelect,
 			minQueryLength = 3,
 			placeholder,
 			showAllResultsOnFocus = true,
@@ -66,7 +64,6 @@ const TypeAhead = forwardRef(
 			setInputValue(item);
 			setSelectedValue(item);
 			clearResults();
-			if (onItemSelect) onItemSelect(item, e);
 		};
 
 		return (

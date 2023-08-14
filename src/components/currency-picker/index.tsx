@@ -1,40 +1,26 @@
-import { BaseSyntheticEvent, forwardRef } from 'react';
+import { RefObject, forwardRef } from 'react';
 import TypeAhead from '@/src/components/typeahead';
 import { Wrapper, ElementWrapper } from './index.styles';
 
 type Props = {
 	dataSource: string[];
-	onItemSelect: (item: string, e: BaseSyntheticEvent) => void;
-	ref: {
-		from: React.ForwardedRef<HTMLInputElement>;
-		to: React.ForwardedRef<HTMLInputElement>;
+	inputRefs: {
+		from: RefObject<HTMLInputElement>;
+		to: RefObject<HTMLInputElement>;
 	};
 };
-const CurrencyPicker = forwardRef(({ dataSource, onItemSelect }: Props, ref) => {
+const CurrencyPicker = ({ dataSource, inputRefs }: Props) => {
 	return (
 		<Wrapper>
 			<ElementWrapper>
-				<TypeAhead
-					dataSource={dataSource}
-					inputId="currency-picker-from"
-					label="From"
-					onItemSelect={onItemSelect}
-					ref={ref?.from}
-				/>
+				<TypeAhead dataSource={dataSource} inputId="currency-picker-from" label="From" ref={inputRefs?.from} />
 			</ElementWrapper>
 
 			<ElementWrapper>
-				<TypeAhead
-					dataSource={dataSource}
-					inputId="currency-picker-to"
-					label="To"
-					onItemSelect={onItemSelect}
-					ref={ref?.to}
-				/>
+				<TypeAhead dataSource={dataSource} inputId="currency-picker-to" label="To" ref={inputRefs?.to} />
 			</ElementWrapper>
 		</Wrapper>
 	);
-});
-CurrencyPicker.displayName = 'CurrencyPicker';
+};
 
 export default CurrencyPicker;

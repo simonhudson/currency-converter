@@ -1,4 +1,4 @@
-import { useEffect, useState, BaseSyntheticEvent, useCallback, createRef } from 'react';
+import { useEffect, useState, BaseSyntheticEvent, useCallback, useRef } from 'react';
 import AmountForm from '@/src/components/amount-form';
 import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';
@@ -43,9 +43,9 @@ type ConvertedValue = {
 };
 
 const Home = ({ currencies }: Props) => {
-	const amountInputRef = createRef<HTMLInputElement>();
-	const convertFromInputRef = createRef<HTMLInputElement>();
-	const convertToInputRef = createRef<HTMLInputElement>();
+	const amountInputRef = useRef();
+	const convertFromInputRef = useRef();
+	const convertToInputRef = useRef();
 
 	const [dataLoadingError, setDataLoadingError] = useState<string | undefined>();
 	const [currencyPickerDataSource, setCurrencyPickerDataSource] = useState<string[]>([]);
@@ -91,13 +91,24 @@ const Home = ({ currencies }: Props) => {
 
 	const getCurrencyCode = (name: string): string => Object.keys(currencies!).find((key) => name.includes(key)) ?? '';
 
+	const clearValues = (callback: () => void): void => {
+		setConvertFrom(undefined);
+		setConvertTo(undefined);
+		setAmount(undefined);
+		setConvertedValue(undefined);
+		callback();
+	};
+
 	const onSubmit = (): void => {
 		const fromValue: string = convertFromInputRef?.current?.value ?? '';
 		const toValue: string = convertToInputRef?.current?.value ?? '';
 		const amountValue: number = parseInt(amountInputRef?.current?.value ?? '', 10);
-		setConvertFrom({ name: fromValue, code: getCurrencyCode(fromValue) });
-		setConvertTo({ name: toValue, code: getCurrencyCode(toValue) });
-		setAmount(amountValue);
+
+		clearValues(() => {
+			setConvertFrom({ name: fromValue, code: getCurrencyCode(fromValue) });
+			setConvertTo({ name: toValue, code: getCurrencyCode(toValue) });
+			setAmount(amountValue);
+		});
 	};
 
 	return (
@@ -110,7 +121,7 @@ const Home = ({ currencies }: Props) => {
 					<AmountForm onValidInput={(value: number) => setAmount(value)} ref={amountInputRef} />
 					<CurrencyPicker
 						dataSource={currencyPickerDataSource}
-						ref={{
+						inputRefs={{
 							from: convertFromInputRef,
 							to: convertToInputRef,
 						}}
