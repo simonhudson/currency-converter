@@ -3,7 +3,6 @@ import AmountForm from '@/src/components/amount-form';
 import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';
 import { Button } from '@/src/styles/forms.styles';
-
 import Modal from '@/src/components/modal';
 
 type Currencies = {
