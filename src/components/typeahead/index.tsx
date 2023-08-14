@@ -32,7 +32,10 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 		const clearResults = (): void => setResults([]);
 		const clearSelectedValue = (): void => setSelectedValue(null);
 
-		const getInputValue = (): string => ref?.current?.value ?? '';
+		const getInputValue = (): string => {
+			if (!!ref && typeof ref !== 'function') return ref?.current?.value ?? '';
+			return '';
+		};
 		const getInputValueLength = (): number => getInputValue().length;
 		const getResultsLength = (): number => results?.length;
 
