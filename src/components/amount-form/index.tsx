@@ -3,15 +3,14 @@ import { Input, Label, ErrorMessage } from '@/src/styles/forms.styles';
 
 type Props = {
 	onValidInput: (value: number) => void;
-	ref: React.RefObject<HTMLInputElement>;
 };
 
-const AmountForm = forwardRef(({ onValidInput }: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
+const AmountForm = forwardRef<HTMLInputElement, Props>(({ onValidInput }, ref) => {
 	const [inputValue, setInputValue] = useState<string>('');
 	const [inputErrorMessage, setInputErrorMessage] = useState<string | undefined>();
 
 	const validateAmount = (e: BaseSyntheticEvent): void => {
-		const value: string = e.target.value;
+		const value: string = ref?.current?.value;
 		const isDecimalValue: boolean = value.includes('.');
 		if (value.length && !isDecimalValue) {
 			setInputErrorMessage(undefined);

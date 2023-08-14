@@ -43,9 +43,9 @@ type ConvertedValue = {
 };
 
 const Home = ({ currencies }: Props) => {
-	const amountInputRef = useRef();
-	const convertFromInputRef = useRef();
-	const convertToInputRef = useRef();
+	const amountInputRef = useRef<HTMLInputElement>(null);
+	const convertFromInputRef = useRef<HTMLInputElement>(null);
+	const convertToInputRef = useRef<HTMLInputElement>(null);
 
 	const [dataLoadingError, setDataLoadingError] = useState<string | undefined>();
 	const [currencyPickerDataSource, setCurrencyPickerDataSource] = useState<string[]>([]);
@@ -121,10 +121,7 @@ const Home = ({ currencies }: Props) => {
 					<AmountForm onValidInput={(value: number) => setAmount(value)} ref={amountInputRef} />
 					<CurrencyPicker
 						dataSource={currencyPickerDataSource}
-						ref={{
-							from: convertFromInputRef,
-							to: convertToInputRef,
-						}}
+						ref={{ to: convertFromInputRef, from: convertToInputRef }}
 					/>
 					<Button
 						onClick={(e) => {
