@@ -89,15 +89,6 @@ const Home = ({ currencies }: Props) => {
 		setConvertTo(convertFrom);
 	};
 
-	const onCurrencySelection = (selectedValue: string, e: BaseSyntheticEvent): void => {
-		// const currencyCode = Object.keys(currencies!).find((key) => selectedValue.includes(key)) ?? '';
-		// const isFromSelection = e.target.dataset.inputId.includes('from');
-		// const isToSelection = e.target.dataset.inputId.includes('to');
-		// const valueToSet = { name: selectedValue, code: currencyCode };
-		// if (isFromSelection) setConvertFrom(valueToSet);
-		// if (isToSelection) setConvertTo(valueToSet);
-	};
-
 	const getCurrencyCode = (name: string): string => Object.keys(currencies!).find((key) => name.includes(key)) ?? '';
 
 	const onSubmit = (): void => {
