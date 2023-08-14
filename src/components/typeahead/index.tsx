@@ -1,5 +1,3 @@
-'use client';
-
 import React, { BaseSyntheticEvent, useEffect, useRef, useState, forwardRef } from 'react';
 import { Label, LabelInfo, Input } from '@/src/styles/forms.styles';
 import { Wrapper, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
