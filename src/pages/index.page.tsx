@@ -43,9 +43,9 @@ type ConvertedValue = {
 };
 
 const Home = ({ currencies }: Props) => {
-	const amountInputRef = useRef<HTMLInputElement>(null);
-	const convertFromInputRef = useRef<HTMLInputElement>(null);
-	const convertToInputRef = useRef<HTMLInputElement>(null);
+	const amountInputRef = useRef<HTMLInputElement | null>(null);
+	const convertFromInputRef = useRef<HTMLInputElement | null>(null);
+	const convertToInputRef = useRef<HTMLInputElement | null>(null);
 
 	const [dataLoadingError, setDataLoadingError] = useState<string | undefined>();
 	const [currencyPickerDataSource, setCurrencyPickerDataSource] = useState<string[]>([]);
@@ -104,6 +104,10 @@ const Home = ({ currencies }: Props) => {
 		const toValue: string = convertToInputRef?.current?.value ?? '';
 		const amountValue: number = parseInt(amountInputRef?.current?.value ?? '', 10);
 
+		console.log('onSubmit----------------');
+		console.log(amountValue, fromValue, toValue);
+		console.log('/onSubmit----------------');
+
 		clearValues(() => {
 			setConvertFrom({ name: fromValue, code: getCurrencyCode(fromValue) });
 			setConvertTo({ name: toValue, code: getCurrencyCode(toValue) });
@@ -121,7 +125,7 @@ const Home = ({ currencies }: Props) => {
 					<AmountForm onValidInput={(value: number) => setAmount(value)} ref={amountInputRef} />
 					<CurrencyPicker
 						dataSource={currencyPickerDataSource}
-						ref={{ to: convertFromInputRef, from: convertToInputRef }}
+						ref={{ from: convertFromInputRef, to: convertToInputRef }}
 					/>
 					<Button
 						onClick={(e) => {

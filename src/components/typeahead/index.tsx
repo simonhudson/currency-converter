@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useEffect, useRef, useState, forwardRef } from 'react';
+import React, { BaseSyntheticEvent, useEffect, useRef, useState, forwardRef, RefObject } from 'react';
 import { Label, LabelInfo, Input } from '@/src/styles/forms.styles';
 import { Wrapper, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
 import AssistiveContent from './assistive-content';
@@ -7,7 +7,6 @@ import returnKeyPressed from '@/src/helpers/returnKeyPressed';
 type Props = {
 	dataSource: string[];
 	inputId: string;
-	isDisabled?: boolean;
 	label: string;
 	labelInfo?: string;
 	minQueryLength?: number;
@@ -15,18 +14,9 @@ type Props = {
 	showAllResultsOnFocus?: boolean;
 };
 
-const TypeAhead = forwardRef<HTMLInputElement, Props>(
+const TypeAhead = forwardRef(
 	(
-		{
-			dataSource,
-			inputId,
-			isDisabled,
-			label,
-			labelInfo,
-			minQueryLength = 3,
-			placeholder,
-			showAllResultsOnFocus = true,
-		},
+		{ dataSource, inputId, label, labelInfo, minQueryLength = 3, placeholder, showAllResultsOnFocus = true }: Props,
 		ref
 	) => {
 		const resultsListRef = useRef<HTMLUListElement>(null);
@@ -73,14 +63,13 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 					selectedValue={selectedValue}
 					inputId={inputId}
 				/>
-				<Label htmlFor={inputId} aria-disabled={isDisabled}>
+				<Label htmlFor={inputId}>
 					{label}
 					{labelInfo && <LabelInfo>{labelInfo}</LabelInfo>}
 				</Label>
 				<Input
-					aria-describedby="typeahead-assistive-hint"
+					aria-describedby={`typeahead-assistive-hint--${inputId}`}
 					autoComplete="off"
-					disabled={isDisabled}
 					id={inputId}
 					onChange={(e) => {
 						setInputValue(e.target.value);

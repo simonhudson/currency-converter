@@ -1,4 +1,4 @@
-import { useState, BaseSyntheticEvent, forwardRef } from 'react';
+import { useState, BaseSyntheticEvent, forwardRef, RefObject } from 'react';
 import { Input, Label, ErrorMessage } from '@/src/styles/forms.styles';
 
 type Props = {
@@ -9,18 +9,20 @@ const AmountForm = forwardRef<HTMLInputElement, Props>(({ onValidInput }, ref) =
 	const [inputValue, setInputValue] = useState<string>('');
 	const [inputErrorMessage, setInputErrorMessage] = useState<string | undefined>();
 
-	const validateAmount = (e: BaseSyntheticEvent): void => {
-		const value: string = ref?.current?.value;
-		const isDecimalValue: boolean = value.includes('.');
-		if (value.length && !isDecimalValue) {
-			setInputErrorMessage(undefined);
-			onValidInput(Number(value));
-		} else {
-			if (!value.length) setInputErrorMessage('Error: Please enter a value in the "Amount" field.');
-			if (isDecimalValue)
-				setInputErrorMessage(
-					`Error: ${value} is not a valid number. Please enter whole numbers only, without decimals.`
-				);
+	const validateAmount = (): void => {
+		if (ref !== null && typeof ref !== 'function') {
+			const value: string = ref?.current?.value ?? '';
+			const isDecimalValue: boolean = value.includes('.');
+			if (value.length && !isDecimalValue) {
+				setInputErrorMessage(undefined);
+				onValidInput(Number(value));
+			} else {
+				if (!value.length) setInputErrorMessage('Error: Please enter a value in the "Amount" field.');
+				if (isDecimalValue)
+					setInputErrorMessage(
+						`Error: ${value} is not a valid number. Please enter whole numbers only, without decimals.`
+					);
+			}
 		}
 	};
 
@@ -39,7 +41,7 @@ const AmountForm = forwardRef<HTMLInputElement, Props>(({ onValidInput }, ref) =
 				aria-invalid={!!inputErrorMessage}
 				aria-required="true"
 				id="amount"
-				onBlur={(e) => validateAmount(e)}
+				onBlur={() => validateAmount()}
 				onChange={(e) => setInputValue(e.target.value)}
 				placeholder="Whole numbers only"
 				ref={ref}

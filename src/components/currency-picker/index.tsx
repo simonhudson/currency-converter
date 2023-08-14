@@ -5,7 +5,7 @@ import { Wrapper, ElementWrapper } from './index.styles';
 type Props = {
 	dataSource: string[];
 };
-const CurrencyPicker = forwardRef<HTMLInputElement, Props>(({ dataSource }, ref) => {
+const CurrencyPicker = forwardRef(({ dataSource }: Props, ref) => {
 	return (
 		<Wrapper>
 			<ElementWrapper>
