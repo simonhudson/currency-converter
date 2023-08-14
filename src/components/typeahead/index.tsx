@@ -93,9 +93,9 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 									return (
 										<ResultsItem
 											key={`results-list--${slug}`}
-											onClick={(e) => selectValueFromList(item, e)}
+											onClick={(e) => selectValueFromList(item)}
 											onKeyUp={(e) => {
-												if (returnKeyPressed(e)) selectValueFromList(item, e);
+												if (returnKeyPressed(e)) selectValueFromList(item);
 											}}
 											tabIndex={0}
 											data-input-id={inputId}
