@@ -1,4 +1,4 @@
-import { useEffect, useState, BaseSyntheticEvent, useCallback, useRef } from 'react';
+import { useEffect, useState, useCallback, useRef } from 'react';
 import AmountForm from '@/src/components/amount-form';
 import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';

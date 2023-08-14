@@ -1,4 +1,4 @@
-import { useState, BaseSyntheticEvent, forwardRef, RefObject } from 'react';
+import { useState, forwardRef } from 'react';
 import { Input, Label, ErrorMessage } from '@/src/styles/forms.styles';
 
 type Props = {

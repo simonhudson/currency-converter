@@ -1,4 +1,4 @@
-import React, { BaseSyntheticEvent, useEffect, useRef, useState, forwardRef, RefObject } from 'react';
+import React, { useEffect, useRef, useState, forwardRef } from 'react';
 import { Label, LabelInfo, Input } from '@/src/styles/forms.styles';
 import { Wrapper, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
 import AssistiveContent from './assistive-content';
@@ -32,10 +32,7 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 		const clearResults = (): void => setResults([]);
 		const clearSelectedValue = (): void => setSelectedValue(null);
 
-		const getInputValue = (): string => {
-			if (!!ref && typeof ref !== 'function') return ref?.current?.value ?? '';
-			return '';
-		};
+		const getInputValue = (): string => (!!ref && typeof ref !== 'function' ? ref?.current?.value ?? '' : '');
 		const getInputValueLength = (): number => getInputValue().length;
 		const getResultsLength = (): number => results?.length;
 
@@ -51,7 +48,7 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 			}
 		};
 
-		const selectValueFromList = (item: string, e: BaseSyntheticEvent): void => {
+		const selectValueFromList = (item: string): void => {
 			setInputValue(item);
 			setSelectedValue(item);
 			clearResults();
