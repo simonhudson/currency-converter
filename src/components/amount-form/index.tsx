@@ -1,11 +1,12 @@
-import { useState, BaseSyntheticEvent } from 'react';
+import { useState, BaseSyntheticEvent, forwardRef } from 'react';
 import { Input, Label, ErrorMessage } from '@/src/styles/forms.styles';
 
 type Props = {
 	onValidInput: (value: number) => void;
+	ref: React.RefObject<HTMLInputElement>;
 };
 
-const AmountForm = ({ onValidInput }: Props) => {
+const AmountForm = forwardRef(({ onValidInput }: Props, ref: React.ForwardedRef<HTMLInputElement>) => {
 	const [inputValue, setInputValue] = useState<string>('');
 	const [inputErrorMessage, setInputErrorMessage] = useState<string | undefined>();
 
@@ -42,11 +43,13 @@ const AmountForm = ({ onValidInput }: Props) => {
 				onBlur={(e) => validateAmount(e)}
 				onChange={(e) => setInputValue(e.target.value)}
 				placeholder="Whole numbers only"
+				ref={ref}
 				type="number"
 				value={inputValue}
 			/>
 		</form>
 	);
-};
+});
+AmountForm.displayName = 'AmountForm';
 
 export default AmountForm;

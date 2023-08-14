@@ -1,4 +1,4 @@
-import { useEffect, useState, BaseSyntheticEvent, useCallback } from 'react';
+import { useEffect, useState, BaseSyntheticEvent, useCallback, createRef } from 'react';
 import AmountForm from '@/src/components/amount-form';
 import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';
@@ -43,6 +43,10 @@ type ConvertedValue = {
 };
 
 const Home = ({ currencies }: Props) => {
+	const amountInputRef = createRef<HTMLInputElement>();
+	const convertFromInputRef = createRef<HTMLInputElement>();
+	const convertToInputRef = createRef<HTMLInputElement>();
+
 	const [dataLoadingError, setDataLoadingError] = useState<string | undefined>();
 	const [currencyPickerDataSource, setCurrencyPickerDataSource] = useState<string[]>([]);
 	const [amount, setAmount] = useState<number | undefined>();
@@ -52,8 +56,6 @@ const Home = ({ currencies }: Props) => {
 	const [convertTo, setConvertTo] = useState<ConversionObject | undefined>();
 	const [convertedValue, setConvertedValue] = useState<ConvertedValue | undefined>();
 
-	const [submitted, setSubmitted] = useState<boolean>(false);
-
 	useEffect(() => {
 		if (!currencies) setDataLoadingError('Sorry, we could not load currency data');
 		let currencyNames = [];
@@ -62,8 +64,7 @@ const Home = ({ currencies }: Props) => {
 	}, [currencies]);
 
 	const doConversion = useCallback(async (): Promise<void> => {
-		if (amount && convertFrom?.name && convertFrom?.code && convertTo?.name && convertTo?.code && submitted) {
-			setSubmitted(false);
+		if (amount && convertFrom?.name && convertFrom?.code && convertTo?.name && convertTo?.code) {
 			const response = await fetch(
 				`https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/${convertFrom.code}`
 			);
@@ -77,7 +78,7 @@ const Home = ({ currencies }: Props) => {
 				});
 			}
 		}
-	}, [amount, convertFrom, convertTo, submitted]);
+	}, [amount, convertFrom, convertTo]);
 
 	useEffect(() => {
 		doConversion();
@@ -86,28 +87,26 @@ const Home = ({ currencies }: Props) => {
 	const switchConversionDirection = (): void => {
 		setConvertFrom(convertTo);
 		setConvertTo(convertFrom);
-		setSubmitted(true);
 	};
 
 	const onCurrencySelection = (selectedValue: string, e: BaseSyntheticEvent): void => {
-		const currencyCode = Object.keys(currencies!).find((key) => selectedValue.includes(key)) ?? '';
-
-		const isFromSelection = e.target.dataset.inputId.includes('from');
-		const isToSelection = e.target.dataset.inputId.includes('to');
-
-		const valueToSet = { name: selectedValue, code: currencyCode };
-
-		if (isFromSelection) setConvertFrom(valueToSet);
-		if (isToSelection) setConvertTo(valueToSet);
+		// const currencyCode = Object.keys(currencies!).find((key) => selectedValue.includes(key)) ?? '';
+		// const isFromSelection = e.target.dataset.inputId.includes('from');
+		// const isToSelection = e.target.dataset.inputId.includes('to');
+		// const valueToSet = { name: selectedValue, code: currencyCode };
+		// if (isFromSelection) setConvertFrom(valueToSet);
+		// if (isToSelection) setConvertTo(valueToSet);
 	};
+
+	const getCurrencyCode = (name: string): string => Object.keys(currencies!).find((key) => name.includes(key)) ?? '';
 
 	const onSubmit = (): void => {
-		setSubmitted(true);
-	};
-
-	const onModalClose = (): void => {
-		setConvertFrom(undefined);
-		setConvertTo(undefined);
+		const fromValue: string = convertFromInputRef?.current?.value ?? '';
+		const toValue: string = convertToInputRef?.current?.value ?? '';
+		const amountValue: number = parseInt(amountInputRef?.current?.value ?? '', 10);
+		setConvertFrom({ name: fromValue, code: getCurrencyCode(fromValue) });
+		setConvertTo({ name: toValue, code: getCurrencyCode(toValue) });
+		setAmount(amountValue);
 	};
 
 	return (
@@ -117,10 +116,13 @@ const Home = ({ currencies }: Props) => {
 				<p>{dataLoadingError}</p>
 			) : (
 				<>
-					<AmountForm onValidInput={(value: number) => setAmount(value)} />
+					<AmountForm onValidInput={(value: number) => setAmount(value)} ref={amountInputRef} />
 					<CurrencyPicker
 						dataSource={currencyPickerDataSource}
-						onItemSelect={(item: string, e: BaseSyntheticEvent) => onCurrencySelection(item, e)}
+						ref={{
+							from: convertFromInputRef,
+							to: convertToInputRef,
+						}}
 					/>
 					<Button
 						onClick={(e) => {
@@ -132,7 +134,7 @@ const Home = ({ currencies }: Props) => {
 					</Button>
 					{conversionErrorMessage ||
 						(convertedValue && convertFrom && convertTo && (
-							<Modal onClose={onModalClose}>
+							<Modal>
 								<ConversionResult
 									errorMessage={conversionErrorMessage}
 									from={{

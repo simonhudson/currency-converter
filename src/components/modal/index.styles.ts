@@ -50,6 +50,7 @@ export const Wrapper = styled.div`
 	${media.tabletPortrait(`
 		animation-name: none;
 		box-shadow: none;
+		padding: ${rem(16)};
 		width: 100%;
 		z-index: auto;
 	`)};

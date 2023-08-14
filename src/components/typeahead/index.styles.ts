@@ -38,6 +38,11 @@ export const ResultsItem = styled.li`
 
 	&:hover,
 	&:focus {
-		background: #ddd;
+		background: #f2f9ff;
+		outline: 0;
+	}
+
+	&:focus-visible {
+		text-decoration: underline;
 	}
 `;

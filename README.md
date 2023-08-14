@@ -4,8 +4,10 @@ https://currency-converter-simonhudson.vercel.app
 
 ## Running locally
 
-1. Run `npm run dev`
-2. Navigate to http://localhost:3000
+1. Run `npm install`
+2. Create `.env` file based on `.env.example`
+3. Run `npm run dev`
+4. Navigate to http://localhost:3000
 
 ## Running tests
 1. Run `npm run test`

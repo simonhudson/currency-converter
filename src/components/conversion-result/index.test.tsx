@@ -3,13 +3,25 @@ import ConversionResult from './index';
 import { screen, render, act } from '@testing-library/react';
 
 describe('ConversionResult', () => {
+	let onSwitchDirectionClickMock: jest.Mock;
+
 	beforeEach(() => {
+		onSwitchDirectionClickMock = jest.fn();
 		jest.useFakeTimers();
+	});
+
+	afterEach(() => {
+		jest.restoreAllMocks();
 	});
 
 	it('should render conversion error message', () => {
 		// When
-		render(<ConversionResult errorMessage="Whoops! This is an error message" />);
+		render(
+			<ConversionResult
+				errorMessage="Whoops! This is an error message"
+				onSwitchDirectionClick={onSwitchDirectionClickMock}
+			/>
+		);
 
 		// Then
 		expect(screen.getByRole('alert')).toBeInTheDocument();
@@ -34,6 +46,7 @@ describe('ConversionResult', () => {
 					name: 'YYY',
 					value: 67890,
 				}}
+				onSwitchDirectionClick={onSwitchDirectionClickMock}
 			/>
 		);
 
@@ -60,6 +73,7 @@ describe('ConversionResult', () => {
 					name: 'YYY',
 					value: 67890,
 				}}
+				onSwitchDirectionClick={onSwitchDirectionClickMock}
 			/>
 		);
 		expect(screen.getByRole('alert')).toBeInTheDocument();

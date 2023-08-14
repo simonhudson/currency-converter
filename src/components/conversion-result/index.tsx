@@ -11,7 +11,6 @@ type Props = {
 	from?: CurrencyData;
 	to?: CurrencyData;
 	errorMessage?: string;
-	isLoading?: boolean;
 	onSwitchDirectionClick: () => void;
 };
 

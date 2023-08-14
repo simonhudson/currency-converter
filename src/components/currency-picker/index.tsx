@@ -1,13 +1,16 @@
-import { BaseSyntheticEvent } from 'react';
+import { BaseSyntheticEvent, forwardRef } from 'react';
 import TypeAhead from '@/src/components/typeahead';
 import { Wrapper, ElementWrapper } from './index.styles';
 
 type Props = {
 	dataSource: string[];
 	onItemSelect: (item: string, e: BaseSyntheticEvent) => void;
+	ref: {
+		from: React.ForwardedRef<HTMLInputElement>;
+		to: React.ForwardedRef<HTMLInputElement>;
+	};
 };
-
-const CurrencyPicker = ({ dataSource, onItemSelect }: Props) => {
+const CurrencyPicker = forwardRef(({ dataSource, onItemSelect }: Props, ref) => {
 	return (
 		<Wrapper>
 			<ElementWrapper>
@@ -16,7 +19,7 @@ const CurrencyPicker = ({ dataSource, onItemSelect }: Props) => {
 					inputId="currency-picker-from"
 					label="From"
 					onItemSelect={onItemSelect}
-					placeholder="Search currency"
+					ref={ref?.from}
 				/>
 			</ElementWrapper>
 
@@ -26,11 +29,12 @@ const CurrencyPicker = ({ dataSource, onItemSelect }: Props) => {
 					inputId="currency-picker-to"
 					label="To"
 					onItemSelect={onItemSelect}
-					placeholder="Search currency"
+					ref={ref?.to}
 				/>
 			</ElementWrapper>
 		</Wrapper>
 	);
-};
+});
+CurrencyPicker.displayName = 'CurrencyPicker';
 
 export default CurrencyPicker;

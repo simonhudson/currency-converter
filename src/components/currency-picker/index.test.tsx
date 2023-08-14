@@ -9,6 +9,6 @@ describe('CurrencyPicker', () => {
 		// Then
 		expect(screen.getByLabelText('From')).toBeInTheDocument();
 		expect(screen.getByLabelText('To')).toBeInTheDocument();
-		expect(screen.getAllByPlaceholderText('Search currency').length).toEqual(2);
+		expect(screen.getAllByPlaceholderText('Type 3 or more characters to see suggestions').length).toEqual(2);
 	});
 });
