@@ -104,10 +104,6 @@ const Home = ({ currencies }: Props) => {
 		const toValue: string = convertToInputRef?.current?.value ?? '';
 		const amountValue: number = parseInt(amountInputRef?.current?.value ?? '', 10);
 
-		console.log('onSubmit----------------');
-		console.log(amountValue, fromValue, toValue);
-		console.log('/onSubmit----------------');
-
 		clearValues(() => {
 			setConvertFrom({ name: fromValue, code: getCurrencyCode(fromValue) });
 			setConvertTo({ name: toValue, code: getCurrencyCode(toValue) });
