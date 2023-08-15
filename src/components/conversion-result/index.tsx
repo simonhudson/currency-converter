@@ -1,4 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
+import Image from 'next/image';
 import { Paragraph } from './index.styles';
 import SwitchDirection from '@/src/components/switch-direction';
 import type { ConversionResultProps } from './index.d';
@@ -42,9 +43,9 @@ const ConversionResult = ({ from, to, onSwitchDirectionClick }: ConversionResult
 			) : (
 				<>
 					<Paragraph role="alert">
-						<img alt="" src={from?.flagUrl} /> {from?.value.toLocaleString()} {from?.name}{' '}
+						<Image alt="" src={from?.flagUrl ?? ''} /> {from?.value.toLocaleString()} {from?.name}{' '}
 						<span>is equivalent to </span>
-						<img alt="" src={to?.flagUrl} /> {to?.value.toLocaleString()} {to?.name}
+						<Image alt="" src={to?.flagUrl ?? ''} /> {to?.value.toLocaleString()} {to?.name}
 					</Paragraph>
 					<Paragraph>
 						Expires in <span id="countdown-timer"></span>
