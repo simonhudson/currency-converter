@@ -72,7 +72,10 @@ const Home = ({ currencies }: HomeProps) => {
 		setConvertTo(convertFrom);
 	};
 
-	const getCurrencyCode = (name: string): string => Object.keys(currencies!).find((key) => name.includes(key)) ?? '';
+	const getCurrencyCode = (currencyName: string): string =>
+		Object.keys(currencies!).find((key) => currencyName.includes(key)) ?? '';
+	const getFlagUrl = (currencyName: string): string =>
+		`https://flagcdn.com/24x18/${currencyName.slice(0, 2).toLowerCase() ?? ''}.png`;
 
 	const clearValues = (callback: () => void): void => {
 		setConvertFrom(undefined);
@@ -93,8 +96,16 @@ const Home = ({ currencies }: HomeProps) => {
 			const amountValue: number = parseInt(amountInputRef?.current?.value, 10);
 
 			clearValues(() => {
-				setConvertFrom({ name: fromValue, code: getCurrencyCode(fromValue) });
-				setConvertTo({ name: toValue, code: getCurrencyCode(toValue) });
+				setConvertFrom({
+					name: fromValue,
+					code: getCurrencyCode(fromValue),
+					flagUrl: getFlagUrl(fromValue),
+				});
+				setConvertTo({
+					name: toValue,
+					code: getCurrencyCode(toValue),
+					flagUrl: getFlagUrl(toValue),
+				});
 				setAmount(amountValue);
 			});
 		}
@@ -131,10 +142,12 @@ const Home = ({ currencies }: HomeProps) => {
 							<ConversionResult
 								from={{
 									name: convertFrom.name,
+									flagUrl: convertFrom.flagUrl,
 									value: convertedValue.from,
 								}}
 								to={{
 									name: convertTo.name,
+									flagUrl: convertTo.flagUrl,
 									value: convertedValue.to,
 								}}
 								onSwitchDirectionClick={switchConversionDirection}

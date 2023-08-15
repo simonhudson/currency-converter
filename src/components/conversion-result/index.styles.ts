@@ -6,8 +6,10 @@ export const Paragraph = styled.p`
 
 	&:first-of-type {
 		margin-bottom: ${rem(10)};
+
 		span {
 			display: block;
+			font-weight: normal;
 		}
 	}
 

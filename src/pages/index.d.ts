@@ -9,6 +9,7 @@ export interface HomeProps {
 export interface ConversionObject {
 	name: string;
 	code: string;
+	flagUrl: string;
 }
 
 export interface ConvertedValue {

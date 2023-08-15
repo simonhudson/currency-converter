@@ -29,6 +29,10 @@ const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void;
 };
 
 const ConversionResult = ({ from, to, onSwitchDirectionClick }: ConversionResultProps) => {
+	console.log('----------------');
+	console.log(from, to);
+	console.log('----------------');
+
 	const [hasExpired, setHasExpired] = useState<boolean>(false);
 
 	useEffect(() => {
@@ -42,8 +46,9 @@ const ConversionResult = ({ from, to, onSwitchDirectionClick }: ConversionResult
 			) : (
 				<>
 					<Paragraph role="alert">
-						{from?.value.toLocaleString()} {from?.name} <span>is equivalent to </span>
-						{to?.value.toLocaleString()} {to?.name}
+						<img alt="" src={from?.flagUrl} /> {from?.value.toLocaleString()} {from?.name}{' '}
+						<span>is equivalent to </span>
+						<img alt="" src={to?.flagUrl} /> {to?.value.toLocaleString()} {to?.name}
 					</Paragraph>
 					<Paragraph>
 						Expires in <span id="countdown-timer"></span>
