@@ -29,10 +29,6 @@ const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void;
 };
 
 const ConversionResult = ({ from, to, onSwitchDirectionClick }: ConversionResultProps) => {
-	console.log('----------------');
-	console.log(from, to);
-	console.log('----------------');
-
 	const [hasExpired, setHasExpired] = useState<boolean>(false);
 
 	useEffect(() => {
