@@ -14,6 +14,8 @@ type Props = {
 	showAllResultsOnFocus?: boolean;
 };
 
+const NO_RESULTS_STRING = 'No results found';
+
 const TypeAhead = forwardRef<HTMLInputElement, Props>(
 	(
 		{ dataSource, inputId, label, labelInfo, minQueryLength = 3, placeholder, showAllResultsOnFocus = true }: Props,
@@ -41,7 +43,8 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 				const queryResults: string[] = dataSource.filter((item) =>
 					item.toLowerCase().includes(getInputValue().toLowerCase())
 				);
-				setResults(queryResults);
+				if (queryResults.length < 1) setResults([NO_RESULTS_STRING]);
+				else setResults(queryResults);
 			} else {
 				clearResults();
 				clearSelectedValue();
@@ -49,9 +52,11 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 		};
 
 		const selectValueFromList = (item: string): void => {
-			setInputValue(item);
-			setSelectedValue(item);
-			clearResults();
+			if (item !== NO_RESULTS_STRING) {
+				setInputValue(item);
+				setSelectedValue(item);
+				clearResults();
+			}
 		};
 
 		return (

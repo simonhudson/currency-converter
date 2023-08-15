@@ -10,7 +10,7 @@ describe('AmountForm', () => {
 
 		// Then
 		expect(screen.getByLabelText('Amount')).toBeInTheDocument();
-		expect(screen.getByPlaceholderText('Whole numbers only')).toBeInTheDocument();
+		expect(screen.getByPlaceholderText('Whole numbers only, without decimals')).toBeInTheDocument();
 	});
 
 	describe('Input validation', () => {

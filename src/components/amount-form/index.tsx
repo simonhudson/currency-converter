@@ -41,7 +41,7 @@ const AmountForm = forwardRef<HTMLInputElement, Props>(({ onValidInput }, ref) =
 				id="amount"
 				onBlur={() => validateAmount()}
 				onChange={(e) => setInputValue(e.target.value)}
-				placeholder="Whole numbers only"
+				placeholder="Whole numbers only, without decimals"
 				ref={ref}
 				type="number"
 				value={inputValue}
