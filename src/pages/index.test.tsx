@@ -1,6 +1,6 @@
 import React from 'react';
 import Home, { getStaticProps } from './index.page';
-import { screen, render, fireEvent, waitFor, act } from '@testing-library/react';
+import { screen, render, fireEvent, waitFor } from '@testing-library/react';
 import currenciesData from '@/test/mock-data/currencies';
 
 const ORIGINAL_FETCH = global.fetch;
