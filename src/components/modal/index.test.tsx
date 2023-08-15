@@ -1,6 +1,5 @@
 import Modal from './index';
-import { screen, render } from '@testing-library/react';
-import { fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 
 describe('Modal', () => {
 	it('should render as expected', () => {
@@ -9,6 +8,16 @@ describe('Modal', () => {
 
 		// Then
 		expect(screen.getByRole('dialog')).toBeInTheDocument();
+	});
+	it('should render children', () => {
+		// Given
+		const child = <p>Hello world!</p>;
+
+		// When
+		render(<Modal>{child}</Modal>);
+
+		// Then
+		expect(screen.getByText('Hello world!')).toBeInTheDocument();
 	});
 	it('should close when button clicked', () => {
 		// Given

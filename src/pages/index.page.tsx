@@ -5,10 +5,7 @@ import ConversionResult from '@/src/components/conversion-result';
 import { Button } from '@/src/styles/forms.styles';
 import Modal from '@/src/components/modal';
 import { ErrorMessage } from '@/src/styles/forms.styles';
-
-type Currencies = {
-	[key: string]: string;
-};
+import { HomeProps, Currencies, ConversionObject, ConvertedValue } from './index.d';
 
 export const getStaticProps = async () => {
 	let currenciesData: Currencies;
@@ -28,21 +25,7 @@ export const getStaticProps = async () => {
 	}
 };
 
-type Props = {
-	currencies?: Currencies;
-};
-
-type ConversionObject = {
-	name: string;
-	code: string;
-};
-
-type ConvertedValue = {
-	from: number;
-	to: number;
-};
-
-const Home = ({ currencies }: Props) => {
+const Home = ({ currencies }: HomeProps) => {
 	const amountInputRef = useRef<HTMLInputElement | null>(null);
 	const convertFromInputRef = useRef<HTMLInputElement | null>(null);
 	const convertToInputRef = useRef<HTMLInputElement | null>(null);
@@ -100,15 +83,21 @@ const Home = ({ currencies }: Props) => {
 	};
 
 	const onSubmit = (): void => {
-		const fromValue: string = convertFromInputRef?.current?.value ?? '';
-		const toValue: string = convertToInputRef?.current?.value ?? '';
-		const amountValue: number = parseInt(amountInputRef?.current?.value ?? '', 10);
+		if (
+			convertFromInputRef?.current?.value &&
+			convertToInputRef?.current?.value &&
+			amountInputRef?.current?.value
+		) {
+			const fromValue: string = convertFromInputRef?.current?.value;
+			const toValue: string = convertToInputRef?.current?.value;
+			const amountValue: number = parseInt(amountInputRef?.current?.value, 10);
 
-		clearValues(() => {
-			setConvertFrom({ name: fromValue, code: getCurrencyCode(fromValue) });
-			setConvertTo({ name: toValue, code: getCurrencyCode(toValue) });
-			setAmount(amountValue);
-		});
+			clearValues(() => {
+				setConvertFrom({ name: fromValue, code: getCurrencyCode(fromValue) });
+				setConvertTo({ name: toValue, code: getCurrencyCode(toValue) });
+				setAmount(amountValue);
+			});
+		}
 	};
 
 	return (

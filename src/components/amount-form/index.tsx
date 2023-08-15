@@ -1,11 +1,8 @@
 import { useState, forwardRef } from 'react';
 import { Input, Label, ErrorMessage } from '@/src/styles/forms.styles';
+import type { AmountFormProps } from './index.d';
 
-type Props = {
-	onValidInput: (value: number) => void;
-};
-
-const AmountForm = forwardRef<HTMLInputElement, Props>(({ onValidInput }, ref) => {
+const AmountForm = forwardRef<HTMLInputElement, AmountFormProps>(({ onValidInput }, ref) => {
 	const [inputValue, setInputValue] = useState<string>('');
 	const [inputErrorMessage, setInputErrorMessage] = useState<string | undefined>();
 

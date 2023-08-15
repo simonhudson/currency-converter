@@ -3,22 +3,20 @@ import { Label, LabelInfo, Input } from '@/src/styles/forms.styles';
 import { Wrapper, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
 import AssistiveContent from './assistive-content';
 import returnKeyPressed from '@/src/helpers/returnKeyPressed';
+import { NO_RESULTS_STRING } from './constants';
+import type { TypeAheadProps } from './index.d';
 
-type Props = {
-	dataSource: string[];
-	inputId: string;
-	label: string;
-	labelInfo?: string;
-	minQueryLength?: number;
-	placeholder?: string;
-	showAllResultsOnFocus?: boolean;
-};
-
-const NO_RESULTS_STRING = 'No results found';
-
-const TypeAhead = forwardRef<HTMLInputElement, Props>(
+const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 	(
-		{ dataSource, inputId, label, labelInfo, minQueryLength = 3, placeholder, showAllResultsOnFocus = true }: Props,
+		{
+			dataSource,
+			inputId,
+			label,
+			labelInfo,
+			minQueryLength = 3,
+			placeholder,
+			showAllResultsOnFocus = true,
+		}: TypeAheadProps,
 		ref
 	) => {
 		const resultsListRef = useRef<HTMLUListElement>(null);
@@ -43,6 +41,7 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 				const queryResults: string[] = dataSource.filter((item) =>
 					item.toLowerCase().includes(getInputValue().toLowerCase())
 				);
+
 				if (queryResults.length < 1) setResults([NO_RESULTS_STRING]);
 				else setResults(queryResults);
 			} else {
@@ -65,6 +64,7 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 					minQueryLength={minQueryLength}
 					queryLength={getInputValueLength()}
 					resultsLength={results.length}
+					noResultsFound={results.length === 1 && results[0] === NO_RESULTS_STRING}
 					selectedValue={selectedValue}
 					inputId={inputId}
 				/>
@@ -92,7 +92,7 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 					<ResultsWrapper>
 						{!getResultsLength() && !selectedValue && <p>Sorry, no results for {getInputValue()}.</p>}
 						{!!getResultsLength() && (
-							<ResultsList ref={resultsListRef}>
+							<ResultsList ref={resultsListRef} role="listbox">
 								{results.map((item: string) => {
 									const slug: string = item.toLowerCase().replace(/\s/g, '-');
 									return (
@@ -103,7 +103,7 @@ const TypeAhead = forwardRef<HTMLInputElement, Props>(
 												if (returnKeyPressed(e)) selectValueFromList(item);
 											}}
 											tabIndex={0}
-											data-input-id={inputId}
+											role="listitem"
 										>
 											{item}
 										</ResultsItem>

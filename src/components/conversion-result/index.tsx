@@ -1,17 +1,7 @@
 import { SetStateAction, useEffect, useState } from 'react';
 import { Paragraph } from './index.styles';
 import SwitchDirection from '@/src/components/switch-direction';
-
-type CurrencyData = {
-	name: string;
-	value: number;
-};
-
-type Props = {
-	from?: CurrencyData;
-	to?: CurrencyData;
-	onSwitchDirectionClick: () => void;
-};
+import type { ConversionResultProps } from './index.d';
 
 const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void; (arg0: boolean): void }): void => {
 	let endTime: number, hours: number, mins: number, msLeft: number, time: Date;
@@ -38,7 +28,7 @@ const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void;
 	}
 };
 
-const ConversionResult = ({ from, to, onSwitchDirectionClick }: Props) => {
+const ConversionResult = ({ from, to, onSwitchDirectionClick }: ConversionResultProps) => {
 	const [hasExpired, setHasExpired] = useState<boolean>(false);
 
 	useEffect(() => {

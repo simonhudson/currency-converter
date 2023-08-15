@@ -1,11 +1,8 @@
 import { StyledSvg } from './index.styles';
 import { ButtonSecondary } from '@/src/styles/forms.styles';
+import type { SwitchDirectionProps } from './index.d';
 
-type Props = {
-	onClick: () => void;
-};
-
-const SwitchDirection = ({ onClick }: Props) => {
+const SwitchDirection = ({ onClick }: SwitchDirectionProps) => {
 	return (
 		<ButtonSecondary onClick={() => onClick()}>
 			<StyledSvg

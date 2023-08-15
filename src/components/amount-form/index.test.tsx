@@ -1,7 +1,6 @@
-import React, { createRef } from 'react';
+import { createRef } from 'react';
 import AmountForm from './index';
-import { screen, render } from '@testing-library/react';
-import { fireEvent } from '@testing-library/react';
+import { screen, render, fireEvent } from '@testing-library/react';
 
 describe('AmountForm', () => {
 	it('should render as expected', () => {

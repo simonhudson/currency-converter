@@ -1,7 +1,6 @@
 import React from 'react';
 import SwitchDirection from './index';
-import { screen, render, act } from '@testing-library/react';
-import { fireEvent } from '@testing-library/react';
+import { screen, render, act, fireEvent } from '@testing-library/react';
 
 describe('SwitchDirection', () => {
 	let onClickMock: jest.Mock;
