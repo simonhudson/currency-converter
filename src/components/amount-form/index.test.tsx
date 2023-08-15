@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { createRef } from 'react';
 import AmountForm from './index';
 import { screen, render } from '@testing-library/react';
 import { fireEvent } from '@testing-library/react';
@@ -68,5 +68,8 @@ describe('AmountForm', () => {
 		});
 	});
 
-	const initialise = () => render(<AmountForm onValidInput={jest.fn()} />);
+	const initialise = () => {
+		const ref = createRef<HTMLInputElement>();
+		render(<AmountForm onValidInput={jest.fn()} ref={ref} />);
+	};
 });
