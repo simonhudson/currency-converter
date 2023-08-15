@@ -4,6 +4,7 @@ import CurrencyPicker from '@/src/components/currency-picker';
 import ConversionResult from '@/src/components/conversion-result';
 import { Button } from '@/src/styles/forms.styles';
 import Modal from '@/src/components/modal';
+import { ErrorMessage } from '@/src/styles/forms.styles';
 
 type Currencies = {
 	[key: string]: string;
@@ -131,23 +132,26 @@ const Home = ({ currencies }: Props) => {
 					>
 						Convert
 					</Button>
-					{conversionErrorMessage ||
-						(convertedValue && convertFrom && convertTo && (
-							<Modal>
-								<ConversionResult
-									errorMessage={conversionErrorMessage}
-									from={{
-										name: convertFrom.name,
-										value: convertedValue.from,
-									}}
-									to={{
-										name: convertTo.name,
-										value: convertedValue.to,
-									}}
-									onSwitchDirectionClick={switchConversionDirection}
-								/>
-							</Modal>
-						))}
+					{conversionErrorMessage && (
+						<ErrorMessage as="p" role="alert">
+							{conversionErrorMessage}
+						</ErrorMessage>
+					)}
+					{!conversionErrorMessage && convertedValue && convertFrom && convertTo && (
+						<Modal>
+							<ConversionResult
+								from={{
+									name: convertFrom.name,
+									value: convertedValue.from,
+								}}
+								to={{
+									name: convertTo.name,
+									value: convertedValue.to,
+								}}
+								onSwitchDirectionClick={switchConversionDirection}
+							/>
+						</Modal>
+					)}
 				</>
 			)}
 		</>

@@ -28,14 +28,12 @@ const AmountForm = forwardRef<HTMLInputElement, Props>(({ onValidInput }, ref) =
 
 	return (
 		<form>
-			<Label htmlFor="amount">
-				Amount
-				{!!inputErrorMessage && (
-					<ErrorMessage role="alert" id="input-error-message">
-						{inputErrorMessage}
-					</ErrorMessage>
-				)}
-			</Label>
+			<Label htmlFor="amount">Amount</Label>
+			{!!inputErrorMessage && (
+				<ErrorMessage role="alert" id="input-error-message">
+					{inputErrorMessage}
+				</ErrorMessage>
+			)}
 			<Input
 				aria-errormessage={`${!!inputErrorMessage ? 'input-error-message' : null}`}
 				aria-invalid={!!inputErrorMessage}

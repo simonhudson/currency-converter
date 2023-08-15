@@ -4,12 +4,17 @@ import { AppProps } from 'next/app';
 import '@/src/styles/reset.css';
 import styled, { StyleSheetManager } from 'styled-components';
 import isPropValid from '@emotion/is-prop-valid';
+import media from '@/src/styles/media-queries';
 
 const AppWrapper = styled.div`
 	height: 100vh;
 	margin: 0 auto;
 	padding: 20px 0;
 	width: 80%;
+
+	${media.tabletLandscape(`
+		width: 50%;
+	`)}
 `;
 
 const App = ({ Component, pageProps }: AppProps) => {

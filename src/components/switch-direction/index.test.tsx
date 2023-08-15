@@ -28,9 +28,7 @@ describe('SwitchDirection', () => {
 		expect(screen.getByLabelText('Switch currency conversion direction')).toBeInTheDocument();
 
 		// When
-		act(() => {
-			fireEvent.click(screen.getByText('Switch conversion direction'));
-		});
+		act(() => fireEvent.click(screen.getByText('Switch conversion direction')));
 
 		// Then
 		expect(onClickMock).toHaveBeenCalledTimes(1);

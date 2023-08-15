@@ -10,7 +10,6 @@ type CurrencyData = {
 type Props = {
 	from?: CurrencyData;
 	to?: CurrencyData;
-	errorMessage?: string;
 	onSwitchDirectionClick: () => void;
 };
 
@@ -39,14 +38,13 @@ const startCountdown = (setHasExpired: { (value: SetStateAction<boolean>): void;
 	}
 };
 
-const ConversionResult = ({ from, to, errorMessage, onSwitchDirectionClick }: Props) => {
+const ConversionResult = ({ from, to, onSwitchDirectionClick }: Props) => {
 	const [hasExpired, setHasExpired] = useState<boolean>(false);
 
 	useEffect(() => {
 		startCountdown(setHasExpired);
 	}, []);
 
-	if (errorMessage) return <p role="alert">{errorMessage}</p>;
 	return (
 		<>
 			{hasExpired ? (
