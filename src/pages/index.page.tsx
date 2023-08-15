@@ -5,7 +5,7 @@ import ConversionResult from '@/src/components/conversion-result';
 import { Button } from '@/src/styles/forms.styles';
 import Modal from '@/src/components/modal';
 import { ErrorMessage } from '@/src/styles/forms.styles';
-import { HomeProps, Currencies, ConversionObject, ConvertedValue } from './index.d';
+import { HomeProps, Currencies, ConversionObject, ConvertedValue, DataSource } from './index.d';
 
 export const getStaticProps = async () => {
 	let currenciesData: Currencies;
@@ -31,7 +31,7 @@ const Home = ({ currencies }: HomeProps) => {
 	const convertToInputRef = useRef<HTMLInputElement | null>(null);
 
 	const [dataLoadingError, setDataLoadingError] = useState<string | undefined>();
-	const [currencyPickerDataSource, setCurrencyPickerDataSource] = useState<string[]>([]);
+	const [currencyPickerDataSource, setCurrencyPickerDataSource] = useState<DataSource[]>([]);
 	const [amount, setAmount] = useState<number | undefined>();
 
 	const [conversionErrorMessage, setConversionErrorMessage] = useState<string>('');
@@ -43,7 +43,10 @@ const Home = ({ currencies }: HomeProps) => {
 		if (!currencies) setDataLoadingError('Sorry, we could not load currency data');
 		let currencyNames = [];
 		for (let key in currencies) currencyNames.push(`${key} ${currencies[key]}`);
-		setCurrencyPickerDataSource(currencyNames.sort());
+		currencyNames = currencyNames.sort();
+		const dataSource: DataSource[] = [];
+		currencyNames.forEach((currency) => dataSource.push({ value: currency, imgUrl: getFlagUrl(currency) }));
+		setCurrencyPickerDataSource(dataSource);
 	}, [currencies]);
 
 	const doConversion = useCallback(async (): Promise<void> => {

@@ -43,9 +43,14 @@ const ConversionResult = ({ from, to, onSwitchDirectionClick }: ConversionResult
 			) : (
 				<>
 					<Paragraph role="alert">
-						<Image alt="" src={from?.flagUrl ?? ''} /> {from?.value.toLocaleString()} {from?.name}{' '}
-						<span>is equivalent to </span>
-						<Image alt="" src={to?.flagUrl ?? ''} /> {to?.value.toLocaleString()} {to?.name}
+						<Image alt="" src={from?.flagUrl ?? ''} width="24" height="18" /> {from?.value.toLocaleString()}{' '}
+						{from?.name} <span>is equivalent to </span>
+						<Image
+							alt=""
+							src={to?.flagUrl ?? ''}
+							width="24"
+							height="18"
+						/> {to?.value.toLocaleString()} {to?.name}
 					</Paragraph>
 					<Paragraph>
 						Expires in <span id="countdown-timer"></span>

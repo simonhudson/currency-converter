@@ -1,10 +1,12 @@
 import React, { useEffect, useRef, useState, forwardRef } from 'react';
+import Image from 'next/image';
 import { Label, LabelInfo, Input } from '@/src/styles/forms.styles';
 import { Wrapper, ResultsWrapper, ResultsList, ResultsItem } from './index.styles';
 import AssistiveContent from './assistive-content';
 import returnKeyPressed from '@/src/helpers/returnKeyPressed';
 import { NO_RESULTS_STRING } from './constants';
 import type { TypeAheadProps } from './index.d';
+import type { DataSource } from '@/src/pages/index.d';
 
 const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 	(
@@ -21,7 +23,7 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 	) => {
 		const resultsListRef = useRef<HTMLUListElement>(null);
 
-		const [results, setResults] = useState<string[]>([]);
+		const [results, setResults] = useState<DataSource[]>([]);
 		const [selectedValue, setSelectedValue] = useState<string | null>(null);
 		const [inputValue, setInputValue] = useState<string>('');
 
@@ -38,11 +40,11 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 
 		const queryDataSource = (): void => {
 			if (getInputValueLength() >= minQueryLength) {
-				const queryResults: string[] = dataSource.filter((item) =>
-					item.toLowerCase().includes(getInputValue().toLowerCase())
+				const queryResults: DataSource[] = dataSource.filter((item) =>
+					item.value.toLowerCase().includes(getInputValue().toLowerCase())
 				);
 
-				if (queryResults.length < 1) setResults([NO_RESULTS_STRING]);
+				if (queryResults.length < 1) setResults([{ value: NO_RESULTS_STRING }]);
 				else setResults(queryResults);
 			} else {
 				clearResults();
@@ -64,7 +66,7 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 					minQueryLength={minQueryLength}
 					queryLength={getInputValueLength()}
 					resultsLength={results.length}
-					noResultsFound={results.length === 1 && results[0] === NO_RESULTS_STRING}
+					noResultsFound={results.length === 1 && results[0].value === NO_RESULTS_STRING}
 					selectedValue={selectedValue}
 					inputId={inputId}
 				/>
@@ -93,19 +95,21 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 						{!getResultsLength() && !selectedValue && <p>Sorry, no results for {getInputValue()}.</p>}
 						{!!getResultsLength() && (
 							<ResultsList ref={resultsListRef} role="listbox">
-								{results.map((item: string) => {
-									const slug: string = item.toLowerCase().replace(/\s/g, '-');
+								{results.map((item: DataSource) => {
+									const slug: string = item.value.toLowerCase().replace(/\s/g, '-');
 									return (
 										<ResultsItem
 											key={`results-list--${slug}`}
-											onClick={(e) => selectValueFromList(item)}
+											onClick={(e) => selectValueFromList(item.value)}
 											onKeyUp={(e) => {
-												if (returnKeyPressed(e)) selectValueFromList(item);
+												if (returnKeyPressed(e)) selectValueFromList(item.value);
 											}}
 											tabIndex={0}
 											role="listitem"
 										>
-											{item}
+											<Image alt="" src={item.imgUrl ?? ''} width="24" height="18" />
+											&nbsp;
+											{item.value}
 										</ResultsItem>
 									);
 								})}

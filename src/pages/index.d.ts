@@ -6,6 +6,10 @@ export interface HomeProps {
 	currencies?: Currencies;
 }
 
+export interface DataSource {
+	value: string;
+	imgUrl?: string;
+}
 export interface ConversionObject {
 	name: string;
 	code: string;

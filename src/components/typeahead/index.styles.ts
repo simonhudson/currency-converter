@@ -38,7 +38,7 @@ export const ResultsItem = styled.li`
 
 	&:hover,
 	&:focus {
-		background: #f2f9ff;
+		background-color: #f2f9ff;
 		outline: 0;
 	}
 

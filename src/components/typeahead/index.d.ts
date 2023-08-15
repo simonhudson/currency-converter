@@ -1,5 +1,7 @@
+import type { DataSource } from '@/src/pages/index.d';
+
 export interface TypeAheadProps {
-	dataSource: string[];
+	dataSource: DataSource[];
 	inputId: string;
 	label: string;
 	labelInfo?: string;
