@@ -1,7 +1,7 @@
-import type { DataSource } from '@/src/pages/index.d';
+import type { CurrencyItem } from '@/src/types/currency.d';
 
 export interface TypeAheadProps {
-	dataSource: DataSource[];
+	dataSource: CurrencyItem[];
 	inputId: string;
 	label: string;
 	labelInfo?: string;

@@ -5,17 +5,26 @@ import ConversionResult from '@/src/components/conversion-result';
 import { Button } from '@/src/styles/forms.styles';
 import Modal from '@/src/components/modal';
 import { ErrorMessage } from '@/src/styles/forms.styles';
-import { HomeProps, Currencies, ConversionObject, ConvertedValue, DataSource } from './index.d';
+import { HomeProps, ConvertedValue } from './index.d';
+import type { CurrencyItem } from '@/src/types/currency.d';
 
 export const getStaticProps = async () => {
-	let currenciesData: Currencies;
+	let currenciesData;
 	const response = await fetch(`https://openexchangerates.org/api/currencies.json`);
 
 	if (response?.status === 200) {
 		currenciesData = await response.json();
+		const dataObj: CurrencyItem[] = [];
+		for (let key in currenciesData) {
+			dataObj.push({
+				name: currenciesData[key],
+				code: key,
+				imgUrl: `https://flagcdn.com/24x18/${key.slice(0, 2).toLowerCase() ?? ''}.png`,
+			});
+		}
 		return {
 			props: {
-				currencies: currenciesData,
+				currenciesData: dataObj,
 			},
 		};
 	} else {
@@ -25,29 +34,24 @@ export const getStaticProps = async () => {
 	}
 };
 
-const Home = ({ currencies }: HomeProps) => {
+const Home = ({ currenciesData }: HomeProps) => {
 	const amountInputRef = useRef<HTMLInputElement | null>(null);
 	const convertFromInputRef = useRef<HTMLInputElement | null>(null);
 	const convertToInputRef = useRef<HTMLInputElement | null>(null);
 
 	const [dataLoadingError, setDataLoadingError] = useState<string | undefined>();
-	const [currencyPickerDataSource, setCurrencyPickerDataSource] = useState<DataSource[]>([]);
+	const [currencyPickerDataSource, setCurrencyPickerDataSource] = useState<CurrencyItem[]>([]);
 	const [amount, setAmount] = useState<number | undefined>();
 
 	const [conversionErrorMessage, setConversionErrorMessage] = useState<string>('');
-	const [convertFrom, setConvertFrom] = useState<ConversionObject | undefined>();
-	const [convertTo, setConvertTo] = useState<ConversionObject | undefined>();
+	const [convertFrom, setConvertFrom] = useState<CurrencyItem | undefined>();
+	const [convertTo, setConvertTo] = useState<CurrencyItem | undefined>();
 	const [convertedValue, setConvertedValue] = useState<ConvertedValue | undefined>();
 
 	useEffect(() => {
-		if (!currencies) setDataLoadingError('Sorry, we could not load currency data');
-		let currencyNames = [];
-		for (let key in currencies) currencyNames.push(`${key} ${currencies[key]}`);
-		currencyNames = currencyNames.sort();
-		const dataSource: DataSource[] = [];
-		currencyNames.forEach((currency) => dataSource.push({ value: currency, imgUrl: getFlagUrl(currency) }));
-		setCurrencyPickerDataSource(dataSource);
-	}, [currencies]);
+		if (!currenciesData) setDataLoadingError('Sorry, we could not load currency data');
+		else setCurrencyPickerDataSource(currenciesData);
+	}, [currenciesData]);
 
 	const doConversion = useCallback(async (): Promise<void> => {
 		if (amount && convertFrom?.name && convertFrom?.code && convertTo?.name && convertTo?.code) {
@@ -75,11 +79,6 @@ const Home = ({ currencies }: HomeProps) => {
 		setConvertTo(convertFrom);
 	};
 
-	const getCurrencyCode = (currencyName: string): string =>
-		Object.keys(currencies!).find((key) => currencyName.includes(key)) ?? '';
-	const getFlagUrl = (currencyName: string): string =>
-		`https://flagcdn.com/24x18/${currencyName.slice(0, 2).toLowerCase() ?? ''}.png`;
-
 	const clearValues = (callback: () => void): void => {
 		setConvertFrom(undefined);
 		setConvertTo(undefined);
@@ -89,27 +88,14 @@ const Home = ({ currencies }: HomeProps) => {
 	};
 
 	const onSubmit = (): void => {
-		if (
-			convertFromInputRef?.current?.value &&
-			convertToInputRef?.current?.value &&
-			amountInputRef?.current?.value
-		) {
-			const fromValue: string = convertFromInputRef?.current?.value;
-			const toValue: string = convertToInputRef?.current?.value;
-			const amountValue: number = parseInt(amountInputRef?.current?.value, 10);
-
+		const fromInput = convertFromInputRef?.current;
+		const toInput = convertToInputRef?.current;
+		const amountInput = amountInputRef?.current;
+		if (fromInput?.value && toInput?.value && amountInput?.value) {
 			clearValues(() => {
-				setConvertFrom({
-					name: fromValue,
-					code: getCurrencyCode(fromValue),
-					flagUrl: getFlagUrl(fromValue),
-				});
-				setConvertTo({
-					name: toValue,
-					code: getCurrencyCode(toValue),
-					flagUrl: getFlagUrl(toValue),
-				});
-				setAmount(amountValue);
+				setConvertFrom(currenciesData?.find((item) => item.name === fromInput.value));
+				setConvertTo(currenciesData?.find((item) => item.name === toInput.value));
+				setAmount(parseInt(amountInput.value, 10));
 			});
 		}
 	};
@@ -145,12 +131,12 @@ const Home = ({ currencies }: HomeProps) => {
 							<ConversionResult
 								from={{
 									name: convertFrom.name,
-									flagUrl: convertFrom.flagUrl,
+									imgUrl: convertFrom.imgUrl,
 									value: convertedValue.from,
 								}}
 								to={{
 									name: convertTo.name,
-									flagUrl: convertTo.flagUrl,
+									imgUrl: convertTo.imgUrl,
 									value: convertedValue.to,
 								}}
 								onSwitchDirectionClick={switchConversionDirection}

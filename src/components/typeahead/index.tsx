@@ -6,7 +6,7 @@ import AssistiveContent from './assistive-content';
 import returnKeyPressed from '@/src/helpers/returnKeyPressed';
 import { NO_RESULTS_STRING } from './constants';
 import type { TypeAheadProps } from './index.d';
-import type { DataSource } from '@/src/pages/index.d';
+import type { CurrencyItem } from '@/src/types/currency.d';
 
 const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 	(
@@ -23,7 +23,7 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 	) => {
 		const resultsListRef = useRef<HTMLUListElement>(null);
 
-		const [results, setResults] = useState<DataSource[]>([]);
+		const [results, setResults] = useState<CurrencyItem[]>([]);
 		const [selectedValue, setSelectedValue] = useState<string | null>(null);
 		const [inputValue, setInputValue] = useState<string>('');
 
@@ -40,11 +40,13 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 
 		const queryDataSource = (): void => {
 			if (getInputValueLength() >= minQueryLength) {
-				const queryResults: DataSource[] = dataSource.filter((item) =>
-					item.value.toLowerCase().includes(getInputValue().toLowerCase())
+				const queryResults: CurrencyItem[] = dataSource.filter(
+					(item) =>
+						item.name.toLowerCase().includes(getInputValue().toLowerCase()) ||
+						item?.code?.toLowerCase().includes(getInputValue().toLowerCase())
 				);
 
-				if (queryResults.length < 1) setResults([{ value: NO_RESULTS_STRING }]);
+				if (queryResults.length < 1) setResults([{ name: NO_RESULTS_STRING }]);
 				else setResults(queryResults);
 			} else {
 				clearResults();
@@ -66,7 +68,7 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 					minQueryLength={minQueryLength}
 					queryLength={getInputValueLength()}
 					resultsLength={results.length}
-					noResultsFound={results.length === 1 && results[0].value === NO_RESULTS_STRING}
+					noResultsFound={results.length === 1 && results[0].name === NO_RESULTS_STRING}
 					selectedValue={selectedValue}
 					inputId={inputId}
 				/>
@@ -95,21 +97,21 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 						{!getResultsLength() && !selectedValue && <p>Sorry, no results for {getInputValue()}.</p>}
 						{!!getResultsLength() && (
 							<ResultsList ref={resultsListRef} role="listbox">
-								{results.map((item: DataSource) => {
-									const slug: string = item.value.toLowerCase().replace(/\s/g, '-');
+								{results.map((item: CurrencyItem) => {
+									const slug: string = item.name.toLowerCase().replace(/\s/g, '-');
 									return (
 										<ResultsItem
 											key={`results-list--${slug}`}
-											onClick={(e) => selectValueFromList(item.value)}
+											onClick={(e) => selectValueFromList(item.name)}
 											onKeyUp={(e) => {
-												if (returnKeyPressed(e)) selectValueFromList(item.value);
+												if (returnKeyPressed(e)) selectValueFromList(item.name);
 											}}
 											tabIndex={0}
 											role="listitem"
 										>
 											<Image alt="" src={item.imgUrl ?? ''} width="24" height="18" />
 											&nbsp;
-											{item.value}
+											{item.name}
 										</ResultsItem>
 									);
 								})}

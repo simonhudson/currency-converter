@@ -1,6 +1,6 @@
 interface CurrencyData {
 	name: string;
-	flagUrl: string;
+	imgUrl?: string;
 	value: number;
 }
 

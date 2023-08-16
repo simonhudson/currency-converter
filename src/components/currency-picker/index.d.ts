@@ -1,8 +1,8 @@
 import { RefObject } from 'react';
-import type { DataSource } from '@/src/pages.d';
+import type { CurrencyItem } from '@/src/types/currency.d';
 
 export interface CurrencyPickerProps {
-	dataSource: DataSource[];
+	dataSource: CurrencyItem[];
 	fromInputRef: RefObject<HTMLInputElement>;
 	toInputRef: RefObject<HTMLInputElement>;
 }

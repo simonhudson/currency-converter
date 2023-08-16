@@ -1,19 +1,7 @@
-export interface Currencies {
-	[key: string]: string;
-}
+import type { CurrencyItem } from '@/src/types/currency';
 
 export interface HomeProps {
-	currencies?: Currencies;
-}
-
-export interface DataSource {
-	value: string;
-	imgUrl?: string;
-}
-export interface ConversionObject {
-	name: string;
-	code: string;
-	flagUrl: string;
+	currenciesData?: CurrencyItem[];
 }
 
 export interface ConvertedValue {
