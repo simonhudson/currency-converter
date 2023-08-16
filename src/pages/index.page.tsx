@@ -6,7 +6,10 @@ import { Button } from '@/src/styles/forms.styles';
 import Modal from '@/src/components/modal';
 import { ErrorMessage } from '@/src/styles/forms.styles';
 import { HomeProps, ConvertedValue } from './index.d';
-import type { CurrencyItem } from '@/src/types/currency.d';
+import type { CurrencyItem, ConversionData } from '@/src/types/currency.d';
+import dayjs from 'dayjs';
+
+const CONVERSION_DATA_STORAGE_KEY = 'conversionData';
 
 export const getStaticProps = async () => {
 	let currenciesData;
@@ -34,6 +37,18 @@ export const getStaticProps = async () => {
 	}
 };
 
+const getCachedConversionData = (): ConversionData | undefined => {
+	let cachedData: string = window.localStorage.getItem(CONVERSION_DATA_STORAGE_KEY) ?? '';
+	if (cachedData) {
+		const now = dayjs();
+		const nowUnix = now.unix();
+		const cachedDataObj = JSON.parse(cachedData);
+		const cachedDataNextUpdate = cachedDataObj?.time_next_update_unix;
+		const cachedDataHasExpired = dayjs(nowUnix).isAfter(dayjs(cachedDataNextUpdate));
+		if (!cachedDataHasExpired) return cachedDataObj;
+	}
+};
+
 const Home = ({ currenciesData }: HomeProps) => {
 	const amountInputRef = useRef<HTMLInputElement | null>(null);
 	const convertFromInputRef = useRef<HTMLInputElement | null>(null);
@@ -55,17 +70,21 @@ const Home = ({ currenciesData }: HomeProps) => {
 
 	const doConversion = useCallback(async (): Promise<void> => {
 		if (amount && convertFrom?.name && convertFrom?.code && convertTo?.name && convertTo?.code) {
-			const response = await fetch(
-				`https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/${convertFrom.code}`
-			);
-			const data = await response.json();
-			if (data.result !== 'success') {
+			let data = getCachedConversionData();
+			if (!data) {
+				const response = await fetch(
+					`https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/${convertFrom.code}`
+				);
+				data = await response.json();
+			}
+			if (data?.result !== 'success') {
 				setConversionErrorMessage('Sorry, we could not convert your currency. Please try again.');
 			} else {
 				setConvertedValue({
 					from: amount,
 					to: Math.round(data.conversion_rates[convertTo.code] * amount),
 				});
+				window.localStorage.setItem(CONVERSION_DATA_STORAGE_KEY, JSON.stringify(data));
 			}
 		}
 	}, [amount, convertFrom, convertTo]);
