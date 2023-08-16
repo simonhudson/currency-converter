@@ -1,6 +1,5 @@
 import { SetStateAction, useEffect, useState } from 'react';
-import Image from 'next/image';
-import { Paragraph } from './index.styles';
+import { Paragraph, StyledImage } from './index.styles';
 import SwitchDirection from '@/src/components/switch-direction';
 import type { ConversionResultProps } from './index.d';
 
@@ -43,9 +42,9 @@ const ConversionResult = ({ from, to, onSwitchDirectionClick }: ConversionResult
 			) : (
 				<>
 					<Paragraph role="alert">
-						{from?.imgUrl && <Image alt="" src={from?.imgUrl} width="24" height="18" />}
+						{from?.imgUrl && <StyledImage alt="" src={from?.imgUrl} width="24" height="18" />}
 						{from?.value.toLocaleString()} {from?.name} <span>is equivalent to </span>
-						{to?.imgUrl && <Image alt="" src={to?.imgUrl} width="24" height="18" />}
+						{to?.imgUrl && <StyledImage alt="" src={to?.imgUrl} width="24" height="18" />}
 						{to?.value.toLocaleString()} {to?.name}
 					</Paragraph>
 					<Paragraph>

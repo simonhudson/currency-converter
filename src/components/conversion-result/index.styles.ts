@@ -1,5 +1,6 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
+import Image from 'next/image';
 
 export const Paragraph = styled.p`
 	font-size: ${rem(22)};
@@ -17,4 +18,8 @@ export const Paragraph = styled.p`
 		font-size: ${rem(18)};
 		font-weight: normal;
 	}
+`;
+
+export const StyledImage = styled(Image)`
+	margin-right: ${rem(5)};
 `;
