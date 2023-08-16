@@ -1,6 +1,5 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
-import media from '@/src/styles/media-queries';
 
 export const Overlay = styled.div`
 	align-items: flex-start;
