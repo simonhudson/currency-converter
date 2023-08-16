@@ -80,12 +80,11 @@ const Home = ({ currenciesData }: HomeProps) => {
 		setConvertTo(convertFrom);
 	};
 
-	const clearValues = (callback: () => void): void => {
+	const clearValues = (): void => {
 		setConvertFrom(undefined);
 		setConvertTo(undefined);
 		setAmount(undefined);
 		setConvertedValue(undefined);
-		callback();
 	};
 
 	const onSubmit = (): void => {
@@ -94,19 +93,17 @@ const Home = ({ currenciesData }: HomeProps) => {
 		const amountInput = amountInputRef?.current;
 
 		if (fromInput?.value && toInput?.value && amountInput?.value) {
-			clearValues(() => {
-				setConvertFrom(
-					currenciesData?.find((item) => {
-						if (item.name) return fromInput.value.includes(item.name);
-					})
-				);
-				setConvertTo(
-					currenciesData?.find((item) => {
-						if (item.name) return toInput.value.includes(item.name);
-					})
-				);
-				setAmount(parseInt(amountInput.value, 10));
-			});
+			setConvertFrom(
+				currenciesData?.find((item) => {
+					if (item.name) return fromInput.value.includes(item.name);
+				})
+			);
+			setConvertTo(
+				currenciesData?.find((item) => {
+					if (item.name) return toInput.value.includes(item.name);
+				})
+			);
+			setAmount(parseInt(amountInput.value, 10));
 		}
 	};
 
@@ -137,7 +134,7 @@ const Home = ({ currenciesData }: HomeProps) => {
 						</ErrorMessage>
 					)}
 					{!conversionErrorMessage && convertedValue && convertFrom && convertTo && (
-						<Modal>
+						<Modal onClose={clearValues}>
 							<ConversionResult
 								from={{
 									name: convertFrom.name,
