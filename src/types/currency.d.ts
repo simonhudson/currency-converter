@@ -5,7 +5,7 @@ export interface CurrencyItem {
 }
 
 export interface CurrencyData {
-	name: string;
+	name?: string;
 	imgUrl?: string;
-	value: number;
+	value?: number;
 }
