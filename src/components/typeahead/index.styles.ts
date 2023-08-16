@@ -1,8 +1,6 @@
 import styled from 'styled-components';
 import { rem } from 'polished';
 
-const BORDER = '1px solid #ddd';
-
 export const Wrapper = styled.div`
 	position: relative;
 `;
@@ -28,7 +26,7 @@ export const ResultsList = styled.ul`
 `;
 
 export const ResultsItem = styled.li`
-	border-bottom: ${BORDER};
+	border-bottom: 1px solid #ddd;
 	margin: 0;
 	padding: ${rem(10)};
 

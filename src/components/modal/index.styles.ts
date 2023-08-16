@@ -39,6 +39,10 @@ export const Wrapper = styled.div`
 	top: ${rem(32)};
 	width: 90%;
 	z-index: 2;
+
+	@media screen and (prefers-reduced-motion: reduce) {
+		animation-name: none;
+	}
 `;
 
 export const CloseButton = styled.button`

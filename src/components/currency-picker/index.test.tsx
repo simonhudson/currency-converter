@@ -10,7 +10,17 @@ describe('CurrencyPicker', () => {
 
 		// When
 		render(
-			<CurrencyPicker dataSource={['foo', 'bar', 'lorem']} fromInputRef={fromInputRef} toInputRef={toInputRef} />
+			<CurrencyPicker
+				dataSource={[
+					{ name: 'Foo', code: 'FOO', imgUrl: 'http://Foo-img' },
+					{ name: 'Bar', code: 'BAR', imgUrl: 'http://Bar-img' },
+					{ name: 'Lorem', code: 'LOR', imgUrl: 'http://Lorem-img' },
+					{ name: 'Ipsum', code: 'IPS', imgUrl: 'http://Ipsum-img' },
+					{ name: 'Foobar', code: 'FOB', imgUrl: 'http://Foobar-img' },
+				]}
+				fromInputRef={fromInputRef}
+				toInputRef={toInputRef}
+			/>
 		);
 
 		// Then
