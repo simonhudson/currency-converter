@@ -42,7 +42,7 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 			if (getInputValueLength() >= minQueryLength) {
 				const queryResults: CurrencyItem[] = dataSource.filter(
 					(item) =>
-						item.name.toLowerCase().includes(getInputValue().toLowerCase()) ||
+						item?.name?.toLowerCase().includes(getInputValue().toLowerCase()) ||
 						item?.code?.toLowerCase().includes(getInputValue().toLowerCase())
 				);
 
