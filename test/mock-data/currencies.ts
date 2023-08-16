@@ -1,4 +1,4 @@
-const currenciesData = {
+export const currenciesApiResponse = {
 	AED: 'United Arab Emirates Dirham',
 	AFN: 'Afghan Afghani',
 	ALL: 'Albanian Lek',
@@ -171,4 +171,855 @@ const currenciesData = {
 	ZWL: 'Zimbabwean Dollar',
 };
 
-export default currenciesData;
+export const currenciesData = [
+	{
+		name: 'AED United Arab Emirates Dirham',
+		code: 'AED',
+		imgUrl: 'https://flagcdn.com/24x18/ae.png',
+	},
+	{
+		name: 'AFN Afghan Afghani',
+		code: 'AFN',
+		imgUrl: 'https://flagcdn.com/24x18/af.png',
+	},
+	{
+		name: 'ALL Albanian Lek',
+		code: 'ALL',
+		imgUrl: 'https://flagcdn.com/24x18/al.png',
+	},
+	{
+		name: 'AMD Armenian Dram',
+		code: 'AMD',
+		imgUrl: 'https://flagcdn.com/24x18/am.png',
+	},
+	{
+		name: 'ANG Netherlands Antillean Guilder',
+		code: 'ANG',
+		imgUrl: 'https://flagcdn.com/24x18/an.png',
+	},
+	{
+		name: 'AOA Angolan Kwanza',
+		code: 'AOA',
+		imgUrl: 'https://flagcdn.com/24x18/ao.png',
+	},
+	{
+		name: 'ARS Argentine Peso',
+		code: 'ARS',
+		imgUrl: 'https://flagcdn.com/24x18/ar.png',
+	},
+	{
+		name: 'AUD Australian Dollar',
+		code: 'AUD',
+		imgUrl: 'https://flagcdn.com/24x18/au.png',
+	},
+	{
+		name: 'AWG Aruban Florin',
+		code: 'AWG',
+		imgUrl: 'https://flagcdn.com/24x18/aw.png',
+	},
+	{
+		name: 'AZN Azerbaijani Manat',
+		code: 'AZN',
+		imgUrl: 'https://flagcdn.com/24x18/az.png',
+	},
+	{
+		name: 'BAM Bosnia-Herzegovina Convertible Mark',
+		code: 'BAM',
+		imgUrl: 'https://flagcdn.com/24x18/ba.png',
+	},
+	{
+		name: 'BBD Barbadian Dollar',
+		code: 'BBD',
+		imgUrl: 'https://flagcdn.com/24x18/bb.png',
+	},
+	{
+		name: 'BDT Bangladeshi Taka',
+		code: 'BDT',
+		imgUrl: 'https://flagcdn.com/24x18/bd.png',
+	},
+	{
+		name: 'BGN Bulgarian Lev',
+		code: 'BGN',
+		imgUrl: 'https://flagcdn.com/24x18/bg.png',
+	},
+	{
+		name: 'BHD Bahraini Dinar',
+		code: 'BHD',
+		imgUrl: 'https://flagcdn.com/24x18/bh.png',
+	},
+	{
+		name: 'BIF Burundian Franc',
+		code: 'BIF',
+		imgUrl: 'https://flagcdn.com/24x18/bi.png',
+	},
+	{
+		name: 'BMD Bermudan Dollar',
+		code: 'BMD',
+		imgUrl: 'https://flagcdn.com/24x18/bm.png',
+	},
+	{
+		name: 'BND Brunei Dollar',
+		code: 'BND',
+		imgUrl: 'https://flagcdn.com/24x18/bn.png',
+	},
+	{
+		name: 'BOB Bolivian Boliviano',
+		code: 'BOB',
+		imgUrl: 'https://flagcdn.com/24x18/bo.png',
+	},
+	{
+		name: 'BRL Brazilian Real',
+		code: 'BRL',
+		imgUrl: 'https://flagcdn.com/24x18/br.png',
+	},
+	{
+		name: 'BSD Bahamian Dollar',
+		code: 'BSD',
+		imgUrl: 'https://flagcdn.com/24x18/bs.png',
+	},
+	{
+		name: 'BTC Bitcoin',
+		code: 'BTC',
+		imgUrl: 'https://flagcdn.com/24x18/bt.png',
+	},
+	{
+		name: 'BTN Bhutanese Ngultrum',
+		code: 'BTN',
+		imgUrl: 'https://flagcdn.com/24x18/bt.png',
+	},
+	{
+		name: 'BWP Botswanan Pula',
+		code: 'BWP',
+		imgUrl: 'https://flagcdn.com/24x18/bw.png',
+	},
+	{
+		name: 'BYN Belarusian Ruble',
+		code: 'BYN',
+		imgUrl: 'https://flagcdn.com/24x18/by.png',
+	},
+	{
+		name: 'BZD Belize Dollar',
+		code: 'BZD',
+		imgUrl: 'https://flagcdn.com/24x18/bz.png',
+	},
+	{
+		name: 'CAD Canadian Dollar',
+		code: 'CAD',
+		imgUrl: 'https://flagcdn.com/24x18/ca.png',
+	},
+	{
+		name: 'CDF Congolese Franc',
+		code: 'CDF',
+		imgUrl: 'https://flagcdn.com/24x18/cd.png',
+	},
+	{
+		name: 'CHF Swiss Franc',
+		code: 'CHF',
+		imgUrl: 'https://flagcdn.com/24x18/ch.png',
+	},
+	{
+		name: 'CLF Chilean Unit of Account (UF)',
+		code: 'CLF',
+		imgUrl: 'https://flagcdn.com/24x18/cl.png',
+	},
+	{
+		name: 'CLP Chilean Peso',
+		code: 'CLP',
+		imgUrl: 'https://flagcdn.com/24x18/cl.png',
+	},
+	{
+		name: 'CNH Chinese Yuan (Offshore)',
+		code: 'CNH',
+		imgUrl: 'https://flagcdn.com/24x18/cn.png',
+	},
+	{
+		name: 'CNY Chinese Yuan',
+		code: 'CNY',
+		imgUrl: 'https://flagcdn.com/24x18/cn.png',
+	},
+	{
+		name: 'COP Colombian Peso',
+		code: 'COP',
+		imgUrl: 'https://flagcdn.com/24x18/co.png',
+	},
+	{
+		name: 'CRC Costa Rican Colón',
+		code: 'CRC',
+		imgUrl: 'https://flagcdn.com/24x18/cr.png',
+	},
+	{
+		name: 'CUC Cuban Convertible Peso',
+		code: 'CUC',
+		imgUrl: 'https://flagcdn.com/24x18/cu.png',
+	},
+	{
+		name: 'CUP Cuban Peso',
+		code: 'CUP',
+		imgUrl: 'https://flagcdn.com/24x18/cu.png',
+	},
+	{
+		name: 'CVE Cape Verdean Escudo',
+		code: 'CVE',
+		imgUrl: 'https://flagcdn.com/24x18/cv.png',
+	},
+	{
+		name: 'CZK Czech Republic Koruna',
+		code: 'CZK',
+		imgUrl: 'https://flagcdn.com/24x18/cz.png',
+	},
+	{
+		name: 'DJF Djiboutian Franc',
+		code: 'DJF',
+		imgUrl: 'https://flagcdn.com/24x18/dj.png',
+	},
+	{
+		name: 'DKK Danish Krone',
+		code: 'DKK',
+		imgUrl: 'https://flagcdn.com/24x18/dk.png',
+	},
+	{
+		name: 'DOP Dominican Peso',
+		code: 'DOP',
+		imgUrl: 'https://flagcdn.com/24x18/do.png',
+	},
+	{
+		name: 'DZD Algerian Dinar',
+		code: 'DZD',
+		imgUrl: 'https://flagcdn.com/24x18/dz.png',
+	},
+	{
+		name: 'EGP Egyptian Pound',
+		code: 'EGP',
+		imgUrl: 'https://flagcdn.com/24x18/eg.png',
+	},
+	{
+		name: 'ERN Eritrean Nakfa',
+		code: 'ERN',
+		imgUrl: 'https://flagcdn.com/24x18/er.png',
+	},
+	{
+		name: 'ETB Ethiopian Birr',
+		code: 'ETB',
+		imgUrl: 'https://flagcdn.com/24x18/et.png',
+	},
+	{
+		name: 'EUR Euro',
+		code: 'EUR',
+		imgUrl: 'https://flagcdn.com/24x18/eu.png',
+	},
+	{
+		name: 'FJD Fijian Dollar',
+		code: 'FJD',
+		imgUrl: 'https://flagcdn.com/24x18/fj.png',
+	},
+	{
+		name: 'FKP Falkland Islands Pound',
+		code: 'FKP',
+		imgUrl: 'https://flagcdn.com/24x18/fk.png',
+	},
+	{
+		name: 'GBP British Pound Sterling',
+		code: 'GBP',
+		imgUrl: 'https://flagcdn.com/24x18/gb.png',
+	},
+	{
+		name: 'GEL Georgian Lari',
+		code: 'GEL',
+		imgUrl: 'https://flagcdn.com/24x18/ge.png',
+	},
+	{
+		name: 'GGP Guernsey Pound',
+		code: 'GGP',
+		imgUrl: 'https://flagcdn.com/24x18/gg.png',
+	},
+	{
+		name: 'GHS Ghanaian Cedi',
+		code: 'GHS',
+		imgUrl: 'https://flagcdn.com/24x18/gh.png',
+	},
+	{
+		name: 'GIP Gibraltar Pound',
+		code: 'GIP',
+		imgUrl: 'https://flagcdn.com/24x18/gi.png',
+	},
+	{
+		name: 'GMD Gambian Dalasi',
+		code: 'GMD',
+		imgUrl: 'https://flagcdn.com/24x18/gm.png',
+	},
+	{
+		name: 'GNF Guinean Franc',
+		code: 'GNF',
+		imgUrl: 'https://flagcdn.com/24x18/gn.png',
+	},
+	{
+		name: 'GTQ Guatemalan Quetzal',
+		code: 'GTQ',
+		imgUrl: 'https://flagcdn.com/24x18/gt.png',
+	},
+	{
+		name: 'GYD Guyanaese Dollar',
+		code: 'GYD',
+		imgUrl: 'https://flagcdn.com/24x18/gy.png',
+	},
+	{
+		name: 'HKD Hong Kong Dollar',
+		code: 'HKD',
+		imgUrl: 'https://flagcdn.com/24x18/hk.png',
+	},
+	{
+		name: 'HNL Honduran Lempira',
+		code: 'HNL',
+		imgUrl: 'https://flagcdn.com/24x18/hn.png',
+	},
+	{
+		name: 'HRK Croatian Kuna',
+		code: 'HRK',
+		imgUrl: 'https://flagcdn.com/24x18/hr.png',
+	},
+	{
+		name: 'HTG Haitian Gourde',
+		code: 'HTG',
+		imgUrl: 'https://flagcdn.com/24x18/ht.png',
+	},
+	{
+		name: 'HUF Hungarian Forint',
+		code: 'HUF',
+		imgUrl: 'https://flagcdn.com/24x18/hu.png',
+	},
+	{
+		name: 'IDR Indonesian Rupiah',
+		code: 'IDR',
+		imgUrl: 'https://flagcdn.com/24x18/id.png',
+	},
+	{
+		name: 'ILS Israeli New Sheqel',
+		code: 'ILS',
+		imgUrl: 'https://flagcdn.com/24x18/il.png',
+	},
+	{
+		name: 'IMP Manx pound',
+		code: 'IMP',
+		imgUrl: 'https://flagcdn.com/24x18/im.png',
+	},
+	{
+		name: 'INR Indian Rupee',
+		code: 'INR',
+		imgUrl: 'https://flagcdn.com/24x18/in.png',
+	},
+	{
+		name: 'IQD Iraqi Dinar',
+		code: 'IQD',
+		imgUrl: 'https://flagcdn.com/24x18/iq.png',
+	},
+	{
+		name: 'IRR Iranian Rial',
+		code: 'IRR',
+		imgUrl: 'https://flagcdn.com/24x18/ir.png',
+	},
+	{
+		name: 'ISK Icelandic Króna',
+		code: 'ISK',
+		imgUrl: 'https://flagcdn.com/24x18/is.png',
+	},
+	{
+		name: 'JEP Jersey Pound',
+		code: 'JEP',
+		imgUrl: 'https://flagcdn.com/24x18/je.png',
+	},
+	{
+		name: 'JMD Jamaican Dollar',
+		code: 'JMD',
+		imgUrl: 'https://flagcdn.com/24x18/jm.png',
+	},
+	{
+		name: 'JOD Jordanian Dinar',
+		code: 'JOD',
+		imgUrl: 'https://flagcdn.com/24x18/jo.png',
+	},
+	{
+		name: 'JPY Japanese Yen',
+		code: 'JPY',
+		imgUrl: 'https://flagcdn.com/24x18/jp.png',
+	},
+	{
+		name: 'KES Kenyan Shilling',
+		code: 'KES',
+		imgUrl: 'https://flagcdn.com/24x18/ke.png',
+	},
+	{
+		name: 'KGS Kyrgystani Som',
+		code: 'KGS',
+		imgUrl: 'https://flagcdn.com/24x18/kg.png',
+	},
+	{
+		name: 'KHR Cambodian Riel',
+		code: 'KHR',
+		imgUrl: 'https://flagcdn.com/24x18/kh.png',
+	},
+	{
+		name: 'KMF Comorian Franc',
+		code: 'KMF',
+		imgUrl: 'https://flagcdn.com/24x18/km.png',
+	},
+	{
+		name: 'KPW North Korean Won',
+		code: 'KPW',
+		imgUrl: 'https://flagcdn.com/24x18/kp.png',
+	},
+	{
+		name: 'KRW South Korean Won',
+		code: 'KRW',
+		imgUrl: 'https://flagcdn.com/24x18/kr.png',
+	},
+	{
+		name: 'KWD Kuwaiti Dinar',
+		code: 'KWD',
+		imgUrl: 'https://flagcdn.com/24x18/kw.png',
+	},
+	{
+		name: 'KYD Cayman Islands Dollar',
+		code: 'KYD',
+		imgUrl: 'https://flagcdn.com/24x18/ky.png',
+	},
+	{
+		name: 'KZT Kazakhstani Tenge',
+		code: 'KZT',
+		imgUrl: 'https://flagcdn.com/24x18/kz.png',
+	},
+	{
+		name: 'LAK Laotian Kip',
+		code: 'LAK',
+		imgUrl: 'https://flagcdn.com/24x18/la.png',
+	},
+	{
+		name: 'LBP Lebanese Pound',
+		code: 'LBP',
+		imgUrl: 'https://flagcdn.com/24x18/lb.png',
+	},
+	{
+		name: 'LKR Sri Lankan Rupee',
+		code: 'LKR',
+		imgUrl: 'https://flagcdn.com/24x18/lk.png',
+	},
+	{
+		name: 'LRD Liberian Dollar',
+		code: 'LRD',
+		imgUrl: 'https://flagcdn.com/24x18/lr.png',
+	},
+	{
+		name: 'LSL Lesotho Loti',
+		code: 'LSL',
+		imgUrl: 'https://flagcdn.com/24x18/ls.png',
+	},
+	{
+		name: 'LYD Libyan Dinar',
+		code: 'LYD',
+		imgUrl: 'https://flagcdn.com/24x18/ly.png',
+	},
+	{
+		name: 'MAD Moroccan Dirham',
+		code: 'MAD',
+		imgUrl: 'https://flagcdn.com/24x18/ma.png',
+	},
+	{
+		name: 'MDL Moldovan Leu',
+		code: 'MDL',
+		imgUrl: 'https://flagcdn.com/24x18/md.png',
+	},
+	{
+		name: 'MGA Malagasy Ariary',
+		code: 'MGA',
+		imgUrl: 'https://flagcdn.com/24x18/mg.png',
+	},
+	{
+		name: 'MKD Macedonian Denar',
+		code: 'MKD',
+		imgUrl: 'https://flagcdn.com/24x18/mk.png',
+	},
+	{
+		name: 'MMK Myanma Kyat',
+		code: 'MMK',
+		imgUrl: 'https://flagcdn.com/24x18/mm.png',
+	},
+	{
+		name: 'MNT Mongolian Tugrik',
+		code: 'MNT',
+		imgUrl: 'https://flagcdn.com/24x18/mn.png',
+	},
+	{
+		name: 'MOP Macanese Pataca',
+		code: 'MOP',
+		imgUrl: 'https://flagcdn.com/24x18/mo.png',
+	},
+	{
+		name: 'MRU Mauritanian Ouguiya',
+		code: 'MRU',
+		imgUrl: 'https://flagcdn.com/24x18/mr.png',
+	},
+	{
+		name: 'MUR Mauritian Rupee',
+		code: 'MUR',
+		imgUrl: 'https://flagcdn.com/24x18/mu.png',
+	},
+	{
+		name: 'MVR Maldivian Rufiyaa',
+		code: 'MVR',
+		imgUrl: 'https://flagcdn.com/24x18/mv.png',
+	},
+	{
+		name: 'MWK Malawian Kwacha',
+		code: 'MWK',
+		imgUrl: 'https://flagcdn.com/24x18/mw.png',
+	},
+	{
+		name: 'MXN Mexican Peso',
+		code: 'MXN',
+		imgUrl: 'https://flagcdn.com/24x18/mx.png',
+	},
+	{
+		name: 'MYR Malaysian Ringgit',
+		code: 'MYR',
+		imgUrl: 'https://flagcdn.com/24x18/my.png',
+	},
+	{
+		name: 'MZN Mozambican Metical',
+		code: 'MZN',
+		imgUrl: 'https://flagcdn.com/24x18/mz.png',
+	},
+	{
+		name: 'NAD Namibian Dollar',
+		code: 'NAD',
+		imgUrl: 'https://flagcdn.com/24x18/na.png',
+	},
+	{
+		name: 'NGN Nigerian Naira',
+		code: 'NGN',
+		imgUrl: 'https://flagcdn.com/24x18/ng.png',
+	},
+	{
+		name: 'NIO Nicaraguan Córdoba',
+		code: 'NIO',
+		imgUrl: 'https://flagcdn.com/24x18/ni.png',
+	},
+	{
+		name: 'NOK Norwegian Krone',
+		code: 'NOK',
+		imgUrl: 'https://flagcdn.com/24x18/no.png',
+	},
+	{
+		name: 'NPR Nepalese Rupee',
+		code: 'NPR',
+		imgUrl: 'https://flagcdn.com/24x18/np.png',
+	},
+	{
+		name: 'NZD New Zealand Dollar',
+		code: 'NZD',
+		imgUrl: 'https://flagcdn.com/24x18/nz.png',
+	},
+	{
+		name: 'OMR Omani Rial',
+		code: 'OMR',
+		imgUrl: 'https://flagcdn.com/24x18/om.png',
+	},
+	{
+		name: 'PAB Panamanian Balboa',
+		code: 'PAB',
+		imgUrl: 'https://flagcdn.com/24x18/pa.png',
+	},
+	{
+		name: 'PEN Peruvian Nuevo Sol',
+		code: 'PEN',
+		imgUrl: 'https://flagcdn.com/24x18/pe.png',
+	},
+	{
+		name: 'PGK Papua New Guinean Kina',
+		code: 'PGK',
+		imgUrl: 'https://flagcdn.com/24x18/pg.png',
+	},
+	{
+		name: 'PHP Philippine Peso',
+		code: 'PHP',
+		imgUrl: 'https://flagcdn.com/24x18/ph.png',
+	},
+	{
+		name: 'PKR Pakistani Rupee',
+		code: 'PKR',
+		imgUrl: 'https://flagcdn.com/24x18/pk.png',
+	},
+	{
+		name: 'PLN Polish Zloty',
+		code: 'PLN',
+		imgUrl: 'https://flagcdn.com/24x18/pl.png',
+	},
+	{
+		name: 'PYG Paraguayan Guarani',
+		code: 'PYG',
+		imgUrl: 'https://flagcdn.com/24x18/py.png',
+	},
+	{
+		name: 'QAR Qatari Rial',
+		code: 'QAR',
+		imgUrl: 'https://flagcdn.com/24x18/qa.png',
+	},
+	{
+		name: 'RON Romanian Leu',
+		code: 'RON',
+		imgUrl: 'https://flagcdn.com/24x18/ro.png',
+	},
+	{
+		name: 'RSD Serbian Dinar',
+		code: 'RSD',
+		imgUrl: 'https://flagcdn.com/24x18/rs.png',
+	},
+	{
+		name: 'RUB Russian Ruble',
+		code: 'RUB',
+		imgUrl: 'https://flagcdn.com/24x18/ru.png',
+	},
+	{
+		name: 'RWF Rwandan Franc',
+		code: 'RWF',
+		imgUrl: 'https://flagcdn.com/24x18/rw.png',
+	},
+	{
+		name: 'SAR Saudi Riyal',
+		code: 'SAR',
+		imgUrl: 'https://flagcdn.com/24x18/sa.png',
+	},
+	{
+		name: 'SBD Solomon Islands Dollar',
+		code: 'SBD',
+		imgUrl: 'https://flagcdn.com/24x18/sb.png',
+	},
+	{
+		name: 'SCR Seychellois Rupee',
+		code: 'SCR',
+		imgUrl: 'https://flagcdn.com/24x18/sc.png',
+	},
+	{
+		name: 'SDG Sudanese Pound',
+		code: 'SDG',
+		imgUrl: 'https://flagcdn.com/24x18/sd.png',
+	},
+	{
+		name: 'SEK Swedish Krona',
+		code: 'SEK',
+		imgUrl: 'https://flagcdn.com/24x18/se.png',
+	},
+	{
+		name: 'SGD Singapore Dollar',
+		code: 'SGD',
+		imgUrl: 'https://flagcdn.com/24x18/sg.png',
+	},
+	{
+		name: 'SHP Saint Helena Pound',
+		code: 'SHP',
+		imgUrl: 'https://flagcdn.com/24x18/sh.png',
+	},
+	{
+		name: 'SLL Sierra Leonean Leone',
+		code: 'SLL',
+		imgUrl: 'https://flagcdn.com/24x18/sl.png',
+	},
+	{
+		name: 'SOS Somali Shilling',
+		code: 'SOS',
+		imgUrl: 'https://flagcdn.com/24x18/so.png',
+	},
+	{
+		name: 'SRD Surinamese Dollar',
+		code: 'SRD',
+		imgUrl: 'https://flagcdn.com/24x18/sr.png',
+	},
+	{
+		name: 'SSP South Sudanese Pound',
+		code: 'SSP',
+		imgUrl: 'https://flagcdn.com/24x18/ss.png',
+	},
+	{
+		name: 'STD São Tomé and Príncipe Dobra (pre-2018)',
+		code: 'STD',
+		imgUrl: 'https://flagcdn.com/24x18/st.png',
+	},
+	{
+		name: 'STN São Tomé and Príncipe Dobra',
+		code: 'STN',
+		imgUrl: 'https://flagcdn.com/24x18/st.png',
+	},
+	{
+		name: 'SVC Salvadoran Colón',
+		code: 'SVC',
+		imgUrl: 'https://flagcdn.com/24x18/sv.png',
+	},
+	{
+		name: 'SYP Syrian Pound',
+		code: 'SYP',
+		imgUrl: 'https://flagcdn.com/24x18/sy.png',
+	},
+	{
+		name: 'SZL Swazi Lilangeni',
+		code: 'SZL',
+		imgUrl: 'https://flagcdn.com/24x18/sz.png',
+	},
+	{
+		name: 'THB Thai Baht',
+		code: 'THB',
+		imgUrl: 'https://flagcdn.com/24x18/th.png',
+	},
+	{
+		name: 'TJS Tajikistani Somoni',
+		code: 'TJS',
+		imgUrl: 'https://flagcdn.com/24x18/tj.png',
+	},
+	{
+		name: 'TMT Turkmenistani Manat',
+		code: 'TMT',
+		imgUrl: 'https://flagcdn.com/24x18/tm.png',
+	},
+	{
+		name: 'TND Tunisian Dinar',
+		code: 'TND',
+		imgUrl: 'https://flagcdn.com/24x18/tn.png',
+	},
+	{
+		name: "TOP Tongan Pa'anga",
+		code: 'TOP',
+		imgUrl: 'https://flagcdn.com/24x18/to.png',
+	},
+	{
+		name: 'TRY Turkish Lira',
+		code: 'TRY',
+		imgUrl: 'https://flagcdn.com/24x18/tr.png',
+	},
+	{
+		name: 'TTD Trinidad and Tobago Dollar',
+		code: 'TTD',
+		imgUrl: 'https://flagcdn.com/24x18/tt.png',
+	},
+	{
+		name: 'TWD New Taiwan Dollar',
+		code: 'TWD',
+		imgUrl: 'https://flagcdn.com/24x18/tw.png',
+	},
+	{
+		name: 'TZS Tanzanian Shilling',
+		code: 'TZS',
+		imgUrl: 'https://flagcdn.com/24x18/tz.png',
+	},
+	{
+		name: 'UAH Ukrainian Hryvnia',
+		code: 'UAH',
+		imgUrl: 'https://flagcdn.com/24x18/ua.png',
+	},
+	{
+		name: 'UGX Ugandan Shilling',
+		code: 'UGX',
+		imgUrl: 'https://flagcdn.com/24x18/ug.png',
+	},
+	{
+		name: 'USD United States Dollar',
+		code: 'USD',
+		imgUrl: 'https://flagcdn.com/24x18/us.png',
+	},
+	{
+		name: 'UYU Uruguayan Peso',
+		code: 'UYU',
+		imgUrl: 'https://flagcdn.com/24x18/uy.png',
+	},
+	{
+		name: 'UZS Uzbekistan Som',
+		code: 'UZS',
+		imgUrl: 'https://flagcdn.com/24x18/uz.png',
+	},
+	{
+		name: 'VEF Venezuelan Bolívar Fuerte (Old)',
+		code: 'VEF',
+		imgUrl: 'https://flagcdn.com/24x18/ve.png',
+	},
+	{
+		name: 'VES Venezuelan Bolívar Soberano',
+		code: 'VES',
+		imgUrl: 'https://flagcdn.com/24x18/ve.png',
+	},
+	{
+		name: 'VND Vietnamese Dong',
+		code: 'VND',
+		imgUrl: 'https://flagcdn.com/24x18/vn.png',
+	},
+	{
+		name: 'VUV Vanuatu Vatu',
+		code: 'VUV',
+		imgUrl: 'https://flagcdn.com/24x18/vu.png',
+	},
+	{
+		name: 'WST Samoan Tala',
+		code: 'WST',
+		imgUrl: 'https://flagcdn.com/24x18/ws.png',
+	},
+	{
+		name: 'XAF CFA Franc BEAC',
+		code: 'XAF',
+		imgUrl: 'https://flagcdn.com/24x18/xa.png',
+	},
+	{
+		name: 'XAG Silver Ounce',
+		code: 'XAG',
+		imgUrl: 'https://flagcdn.com/24x18/xa.png',
+	},
+	{
+		name: 'XAU Gold Ounce',
+		code: 'XAU',
+		imgUrl: 'https://flagcdn.com/24x18/xa.png',
+	},
+	{
+		name: 'XCD East Caribbean Dollar',
+		code: 'XCD',
+		imgUrl: 'https://flagcdn.com/24x18/xc.png',
+	},
+	{
+		name: 'XDR Special Drawing Rights',
+		code: 'XDR',
+		imgUrl: 'https://flagcdn.com/24x18/xd.png',
+	},
+	{
+		name: 'XOF CFA Franc BCEAO',
+		code: 'XOF',
+		imgUrl: 'https://flagcdn.com/24x18/xo.png',
+	},
+	{
+		name: 'XPD Palladium Ounce',
+		code: 'XPD',
+		imgUrl: 'https://flagcdn.com/24x18/xp.png',
+	},
+	{
+		name: 'XPF CFP Franc',
+		code: 'XPF',
+		imgUrl: 'https://flagcdn.com/24x18/xp.png',
+	},
+	{
+		name: 'XPT Platinum Ounce',
+		code: 'XPT',
+		imgUrl: 'https://flagcdn.com/24x18/xp.png',
+	},
+	{
+		name: 'YER Yemeni Rial',
+		code: 'YER',
+		imgUrl: 'https://flagcdn.com/24x18/ye.png',
+	},
+	{
+		name: 'ZAR South African Rand',
+		code: 'ZAR',
+		imgUrl: 'https://flagcdn.com/24x18/za.png',
+	},
+	{
+		name: 'ZMW Zambian Kwacha',
+		code: 'ZMW',
+		imgUrl: 'https://flagcdn.com/24x18/zm.png',
+	},
+	{
+		name: 'ZWL Zimbabwean Dollar',
+		code: 'ZWL',
+		imgUrl: 'https://flagcdn.com/24x18/zw.png',
+	},
+];

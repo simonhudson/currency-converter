@@ -1,7 +1,8 @@
 import React from 'react';
 import Home, { getStaticProps } from './index.page';
 import { screen, render, fireEvent, waitFor } from '@testing-library/react';
-import currenciesData from '@/test/mock-data/currencies';
+import { currenciesApiResponse, currenciesData } from '@/test/mock-data/currencies';
+import type { CurrencyItem } from '@/src/types/currency';
 
 const ORIGINAL_FETCH = global.fetch;
 const ORIGINAL_EXCHANGE_RATE_API_KEY = process.env.EXCHANGE_RATE_API_KEY;
@@ -39,13 +40,13 @@ describe('Home', () => {
 
 		it('should handle error status code', async () => {
 			// Given
-			setFetchResponse(currenciesData, 400);
+			setFetchResponse(currenciesApiResponse, 400);
 
 			// When
 			const staticProps = await getStaticProps();
 
 			// Then
-			expect(staticProps.props.currencies).toEqual(undefined);
+			expect(staticProps.props.currenciesData).toEqual(undefined);
 		});
 
 		it('should handle undefined', async () => {
@@ -56,17 +57,17 @@ describe('Home', () => {
 			const staticProps = await getStaticProps();
 
 			// Then
-			expect(staticProps.props.currencies).toEqual(undefined);
+			expect(staticProps.props.currenciesData).toEqual([]);
 		});
 		it('should handle success response', async () => {
 			// Given
-			setFetchResponse(currenciesData, 200);
+			setFetchResponse(currenciesApiResponse, 200);
 
 			// When
 			const staticProps = await getStaticProps();
 
 			// Then
-			expect(staticProps.props.currencies).toEqual(currenciesData);
+			expect(staticProps.props.currenciesData).toEqual(currenciesData);
 		});
 	});
 
@@ -101,7 +102,7 @@ describe('Home', () => {
 
 	describe('Form submission', () => {
 		const populateAndSubmitForm = () => {
-			fireEvent.change(screen.getByLabelText('Amount'), { target: { value: '100' } });
+			fireEvent.change(screen.getByLabelText('Amount'), { target: { value: '10000' } });
 			fireEvent.change(screen.getByLabelText('From'), { target: { value: 'GBP British Pound Sterling' } });
 			fireEvent.change(screen.getByLabelText('To'), { target: { value: 'USD United States Dollar' } });
 			fireEvent.click(screen.getByText('Convert'));
@@ -114,43 +115,45 @@ describe('Home', () => {
 			);
 		};
 
-		it('should make expected API call', () => {
-			// Given
-			intialise(currenciesData);
+		describe('Request conversion data', () => {
+			it('should make expected API call', () => {
+				// Given
+				intialise(currenciesData);
 
-			// When
-			setFetchResponse({
-				result: 'success',
-				conversion_rates: {
-					USD: 2,
-				},
+				// When
+				setFetchResponse({
+					result: 'success',
+					conversion_rates: {
+						USD: 2,
+					},
+				});
+				populateAndSubmitForm();
+
+				// Then
+				assertApiCall('GBP');
+				waitFor(() =>
+					expect(
+						screen.queryByText('Sorry, we could not convert your currency. Please try again.')
+					).not.toBeInTheDocument()
+				);
 			});
-			populateAndSubmitForm();
 
-			// Then
-			assertApiCall('GBP');
-			waitFor(() =>
+			it('should handle API error response', async () => {
+				// Given
+				intialise(currenciesData);
+
+				// When
+				setFetchResponse({
+					result: 'foo',
+				});
+				populateAndSubmitForm();
+
+				// Then
+				assertApiCall('GBP');
 				expect(
-					screen.queryByText('Sorry, we could not convert your currency. Please try again.')
-				).not.toBeInTheDocument()
-			);
-		});
-
-		it('should handle API error response', async () => {
-			// Given
-			intialise(currenciesData);
-
-			// When
-			setFetchResponse({
-				result: 'foo',
+					await screen.findByText('Sorry, we could not convert your currency. Please try again.')
+				).toBeInTheDocument();
 			});
-			populateAndSubmitForm();
-
-			// Then
-			assertApiCall('GBP');
-			expect(
-				await screen.findByText('Sorry, we could not convert your currency. Please try again.')
-			).toBeInTheDocument();
 		});
 
 		it('should render conversion result', async () => {
@@ -171,7 +174,7 @@ describe('Home', () => {
 				await screen.findByText(
 					(_, element) =>
 						element!.textContent ===
-						'100 GBP British Pound Sterling is equivalent to 200 USD United States Dollar'
+						'10,000 GBP British Pound Sterling is equivalent to 20,000 USD United States Dollar'
 				)
 			).toBeInTheDocument();
 		});
@@ -190,7 +193,7 @@ describe('Home', () => {
 				await screen.findByText(
 					(_, element) =>
 						element!.textContent ===
-						'100 GBP British Pound Sterling is equivalent to 200 USD United States Dollar'
+						'10,000 GBP British Pound Sterling is equivalent to 20,000 USD United States Dollar'
 				)
 			).toBeInTheDocument();
 
@@ -209,10 +212,10 @@ describe('Home', () => {
 				await screen.findByText(
 					(_, element) =>
 						element!.textContent ===
-						'100 USD United States Dollar is equivalent to 400 GBP British Pound Sterling'
+						'10,000 USD United States Dollar is equivalent to 40,000 GBP British Pound Sterling'
 				)
 			).toBeInTheDocument();
 		});
 	});
-	const intialise = (currenciesData?: { [key: string]: string }) => render(<Home currencies={currenciesData} />);
+	const intialise = (currenciesData?: CurrencyItem[]) => render(<Home currenciesData={currenciesData} />);
 });

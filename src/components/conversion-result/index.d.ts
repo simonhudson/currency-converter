@@ -1,9 +1,4 @@
-interface CurrencyData {
-	name: string;
-	imgUrl?: string;
-	value: number;
-}
-
+import type { CurrencyData } from '@/src/types/currency';
 export interface ConversionResultProps {
 	from?: CurrencyData;
 	to?: CurrencyData;

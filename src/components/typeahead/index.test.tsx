@@ -5,7 +5,13 @@ import { cloneDeep } from 'lodash';
 import type { TypeAheadProps } from './index.d';
 
 const baseProps: TypeAheadProps = {
-	dataSource: ['Foo', 'Bar', 'Lorem', 'Ipsum', 'Foobar'],
+	dataSource: [
+		{ name: 'Foo', code: 'FOO', imgUrl: 'http://Foo-img' },
+		{ name: 'Bar', code: 'BAR', imgUrl: 'http://Bar-img' },
+		{ name: 'Lorem', code: 'LOR', imgUrl: 'http://Lorem-img' },
+		{ name: 'Ipsum', code: 'IPS', imgUrl: 'http://Ipsum-img' },
+		{ name: 'Foobar', code: 'FOB', imgUrl: 'http://Foobar-img' },
+	],
 	inputId: 'input-id',
 	label: 'Some label',
 	labelInfo: '',
@@ -56,6 +62,37 @@ describe('TypeAhead', () => {
 			expect(listItems[0]).toHaveTextContent('Foo');
 			expect(listItems[1]).toHaveTextContent('Foobar');
 		});
+	});
+
+	it('should render message when no results found', () => {
+		// Given
+		const props = cloneDeep(baseProps);
+		initialise(props);
+
+		// When
+		fireEvent.change(screen.getByLabelText('Some label'), { target: { value: 'xxx' } });
+
+		// Then
+		waitFor(() => {
+			const listItems = screen.getAllByRole('listitem');
+			expect(screen.getByRole('listbox')).toBeInTheDocument();
+			expect(listItems).toBeInTheDocument();
+			expect(listItems.length).toEqual(1);
+			expect(listItems[0]).toHaveTextContent('No results found');
+		});
+	});
+
+	it('should populate field when result is selected', () => {
+		// Given
+		const props = cloneDeep(baseProps);
+		initialise(props);
+		fireEvent.change(screen.getByLabelText('Some label'), { target: { value: 'foo' } });
+
+		// When
+		fireEvent.click(screen.getByText('Foo'));
+
+		// Then
+		expect(screen.getByDisplayValue('Foo')).toBeInTheDocument();
 	});
 
 	const initialise = (props: TypeAheadProps) => {

@@ -6,10 +6,7 @@ import { Button } from '@/src/styles/forms.styles';
 import Modal from '@/src/components/modal';
 import { ErrorMessage } from '@/src/styles/forms.styles';
 import { HomeProps, ConvertedValue } from './index.d';
-import type { CurrencyItem, ConversionData } from '@/src/types/currency.d';
-import dayjs from 'dayjs';
-
-const CONVERSION_DATA_STORAGE_KEY = 'conversionData';
+import type { CurrencyItem } from '@/src/types/currency.d';
 
 export const getStaticProps = async () => {
 	let currenciesData;
@@ -20,7 +17,7 @@ export const getStaticProps = async () => {
 		const dataObj: CurrencyItem[] = [];
 		for (let key in currenciesData) {
 			dataObj.push({
-				name: currenciesData[key],
+				name: `${key} ${currenciesData[key]}`,
 				code: key,
 				imgUrl: `https://flagcdn.com/24x18/${key.slice(0, 2).toLowerCase() ?? ''}.png`,
 			});
@@ -34,18 +31,6 @@ export const getStaticProps = async () => {
 		return {
 			props: {},
 		};
-	}
-};
-
-const getCachedConversionData = (): ConversionData | undefined => {
-	let cachedData: string = window.localStorage.getItem(CONVERSION_DATA_STORAGE_KEY) ?? '';
-	if (cachedData) {
-		const now = dayjs();
-		const nowUnix = now.unix();
-		const cachedDataObj = JSON.parse(cachedData);
-		const cachedDataNextUpdate = cachedDataObj?.time_next_update_unix;
-		const cachedDataHasExpired = dayjs(nowUnix).isAfter(dayjs(cachedDataNextUpdate));
-		if (!cachedDataHasExpired) return cachedDataObj;
 	}
 };
 
@@ -70,13 +55,11 @@ const Home = ({ currenciesData }: HomeProps) => {
 
 	const doConversion = useCallback(async (): Promise<void> => {
 		if (amount && convertFrom?.name && convertFrom?.code && convertTo?.name && convertTo?.code) {
-			let data = getCachedConversionData();
-			if (!data) {
-				const response = await fetch(
-					`https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/${convertFrom.code}`
-				);
-				data = await response.json();
-			}
+			const response = await fetch(
+				`https://v6.exchangerate-api.com/v6/${process.env.EXCHANGE_RATE_API_KEY}/latest/${convertFrom.code}`
+			);
+			const data = await response.json();
+
 			if (data?.result !== 'success') {
 				setConversionErrorMessage('Sorry, we could not convert your currency. Please try again.');
 			} else {
@@ -84,7 +67,6 @@ const Home = ({ currenciesData }: HomeProps) => {
 					from: amount,
 					to: Math.round(data.conversion_rates[convertTo.code] * amount),
 				});
-				window.localStorage.setItem(CONVERSION_DATA_STORAGE_KEY, JSON.stringify(data));
 			}
 		}
 	}, [amount, convertFrom, convertTo]);
@@ -110,10 +92,11 @@ const Home = ({ currenciesData }: HomeProps) => {
 		const fromInput = convertFromInputRef?.current;
 		const toInput = convertToInputRef?.current;
 		const amountInput = amountInputRef?.current;
+
 		if (fromInput?.value && toInput?.value && amountInput?.value) {
 			clearValues(() => {
-				setConvertFrom(currenciesData?.find((item) => item.name === fromInput.value));
-				setConvertTo(currenciesData?.find((item) => item.name === toInput.value));
+				setConvertFrom(currenciesData?.find((item) => fromInput.value.includes(item.name)));
+				setConvertTo(currenciesData?.find((item) => toInput.value.includes(item.name)));
 				setAmount(parseInt(amountInput.value, 10));
 			});
 		}

@@ -2,7 +2,7 @@ import styled from 'styled-components';
 import { rem } from 'polished';
 
 export const Input = styled.input`
-	border: none;
+	border: 1px solid #ddd;
 	border-radius: ${rem(5)};
 	box-shadow: 0 0 5px #ddd;
 	padding: ${rem(16)};

@@ -54,8 +54,8 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 			}
 		};
 
-		const selectValueFromList = (item: string): void => {
-			if (item !== NO_RESULTS_STRING) {
+		const selectValueFromList = (item: string | undefined): void => {
+			if (item && item !== NO_RESULTS_STRING) {
 				setInputValue(item);
 				setSelectedValue(item);
 				clearResults();
@@ -94,26 +94,29 @@ const TypeAhead = forwardRef<HTMLInputElement, TypeAheadProps>(
 				/>
 				{!!getResultsLength() && (
 					<ResultsWrapper>
-						{!getResultsLength() && !selectedValue && <p>Sorry, no results for {getInputValue()}.</p>}
 						{!!getResultsLength() && (
 							<ResultsList ref={resultsListRef} role="listbox">
 								{results.map((item: CurrencyItem) => {
-									const slug: string = item.name.toLowerCase().replace(/\s/g, '-');
-									return (
-										<ResultsItem
-											key={`results-list--${slug}`}
-											onClick={(e) => selectValueFromList(item.name)}
-											onKeyUp={(e) => {
-												if (returnKeyPressed(e)) selectValueFromList(item.name);
-											}}
-											tabIndex={0}
-											role="listitem"
-										>
-											<Image alt="" src={item.imgUrl ?? ''} width="24" height="18" />
-											&nbsp;
-											{item.name}
-										</ResultsItem>
-									);
+									if (item.name) {
+										const slug: string = item.name.toLowerCase().replace(/\s/g, '-');
+										return (
+											<ResultsItem
+												key={`results-list--${slug}`}
+												onClick={(e) => selectValueFromList(item.name)}
+												onKeyUp={(e) => {
+													if (returnKeyPressed(e)) selectValueFromList(item.name);
+												}}
+												tabIndex={0}
+												role="listitem"
+											>
+												{item.imgUrl && (
+													<Image alt="" src={item.imgUrl} width="24" height="18" />
+												)}
+												&nbsp;
+												{item.name}
+											</ResultsItem>
+										);
+									}
 								})}
 							</ResultsList>
 						)}
