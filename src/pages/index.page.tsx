@@ -95,8 +95,16 @@ const Home = ({ currenciesData }: HomeProps) => {
 
 		if (fromInput?.value && toInput?.value && amountInput?.value) {
 			clearValues(() => {
-				setConvertFrom(currenciesData?.find((item) => fromInput.value.includes(item.name)));
-				setConvertTo(currenciesData?.find((item) => toInput.value.includes(item.name)));
+				setConvertFrom(
+					currenciesData?.find((item) => {
+						if (item.name) return fromInput.value.includes(item.name);
+					})
+				);
+				setConvertTo(
+					currenciesData?.find((item) => {
+						if (item.name) return toInput.value.includes(item.name);
+					})
+				);
 				setAmount(parseInt(amountInput.value, 10));
 			});
 		}
