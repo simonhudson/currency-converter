@@ -30,4 +30,18 @@ describe('Modal', () => {
 		// Then
 		expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
 	});
+
+	it('should call close function', () => {
+		// Given
+		const onCloseMock = jest.fn();
+		render(<Modal onClose={onCloseMock} />);
+		expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+		// When
+		fireEvent.click(screen.getByText('Close'));
+
+		// Then
+		expect(onCloseMock).toHaveBeenCalledTimes(1);
+		expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
+	});
 });
