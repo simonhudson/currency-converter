@@ -13,12 +13,6 @@ export const Overlay = styled.div`
 	top: 0;
 	width: 100%;
 	z-index: 1;
-
-	${media.tabletPortrait(`
-		background: 0;
-		position: static;
-		z-index: auto;
-	`)};
 `;
 
 export const Wrapper = styled.div`
@@ -46,14 +40,6 @@ export const Wrapper = styled.div`
 	top: ${rem(32)};
 	width: 90%;
 	z-index: 2;
-
-	${media.tabletPortrait(`
-		animation-name: none;
-		box-shadow: none;
-		padding: ${rem(16)};
-		width: 100%;
-		z-index: auto;
-	`)};
 `;
 
 export const CloseButton = styled.button`
@@ -62,8 +48,4 @@ export const CloseButton = styled.button`
 	position: absolute;
 	right: ${rem(16)};
 	top: ${rem(16)};
-
-	${media.tabletPortrait(`
-		display: none;
-	`)};
 `;
